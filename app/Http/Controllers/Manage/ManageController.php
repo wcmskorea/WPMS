@@ -14,6 +14,6 @@ class ManageController extends Controller
     }
 
     public function dashboard() {
-        return view('manage.dashboard');
+        return view('manage.dashboard', ['title' => 'WPMS v1.0', 'page_title' => 'Dashboard']);
     }
 }

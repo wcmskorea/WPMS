@@ -1,5 +1,7 @@
 @extends('layouts.manage')
 
+@section('title') {{ $title }} @endsection
+
 @section('content')
 <div class="wrapper">
 
