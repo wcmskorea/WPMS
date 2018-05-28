@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manage;
 
 use App\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Todo;
 
 class ManageController extends Controller
 {
@@ -14,6 +15,7 @@ class ManageController extends Controller
     }
 
     public function dashboard() {
-        return view('manage.dashboard', ['title' => 'WPMS v1.0', 'page_title' => 'Dashboard']);
+        $todos['tasks'] = Todo::all();
+        return view('manage.index', ['title' => 'WPMS v1.0', 'page_title' => 'Dashboard', 'page_description' => 'Control panel'])->with($todos);
     }
 }
