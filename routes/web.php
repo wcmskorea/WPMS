@@ -25,7 +25,7 @@ Route::group(['namespace' => 'Manage'], function() {
 	Route::get('manage/todo', ['as' => 'todo', 'uses' => 'TodoController@index']);
 	Route::post('manage/todo', 'TodoController@store');
 	Route::post('manage/todo/{id}', 'TodoController@done');
-	Route::resource('manage/todo', 'TodoController');
+	// Route::resource('manage/todo', 'TodoController');
 });
 
 Route::any('{all}', 'SitesController@index')->where('all', '.*');

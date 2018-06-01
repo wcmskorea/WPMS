@@ -15,7 +15,20 @@ class ManageController extends Controller
     }
 
     public function dashboard() {
-        $todos['tasks'] = Todo::all();
-        return view('manage.index', ['title' => 'WPMS v1.0', 'page_title' => 'Dashboard', 'page_description' => 'Control panel'])->with($todos);
+        // $todos = Todo::all();
+        $todos = Todo::orderBy('created_at', 'desc')->paginate(5);
+
+        if($todos['progress'] < 30) {
+            $color = 'danger';
+        } else if($todos['progress'] < 60){
+            $color = 'warning';
+        } else if($todos['progress'] < 90){
+            $color = 'info';
+        } else {
+            $color = 'success';
+        }
+        
+        return view('manage.todo', ['todos' => $todos, 'color' => $color]);
+        // return view('manage.index', ['title' => 'WPMS v1.0', 'page_title' => 'Dashboard', 'page_description' => 'Control panel'])->with($todos);
     }
 }

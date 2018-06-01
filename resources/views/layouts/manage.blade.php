@@ -8,6 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta charset="UTF-8">
     <title>@yield('title')</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta name="_token" content="{{ csrf_token() }}"/>
     <link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="/bower/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/bower/Ionicons/css/ionicons.min.css">
@@ -24,10 +25,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <body class="hold-transition skin-purple sidebar-mini">
     
     @yield('content')
-    
+
     <!-- REQUIRED JS SCRIPTS -->
     <script src="/bower/jquery/dist/jquery.min.js"></script>
     <script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/bower/admin-lte/dist/js/adminlte.min.js"></script>
+    <!-- AJAX CRUD operations -->
+    <script type="text/javascript">
+      // add a new post
+      $(document).on('click', '#addNewTodo', function() {
+          $('.modal-title').text('할일 신규 등록하기');
+          $('#modal-todo-add').modal('show');
+      });
+    </script>
   </body>
 </html>

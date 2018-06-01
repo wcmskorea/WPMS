@@ -1,31 +1,38 @@
-<?php
-
-namespace App\Http\Controllers\Manage;
+<?php namespace App\Http\Controllers\Manage;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Todo;
+use Validator;
 
 class TodoController extends Controller
 {
     //
     public function index() {
-        $todos['tasks'] = Todo::all();
-        return view('manage.todo')->with($todos);
-        //return "todo controller";
+
+        // $todos = Todo::all();
+        $todos = Todo::orderBy('progress', 'asc')->paginate(5);
+        return view('manage.todo', ['todos' => $todos]);
+
     }
 
     public function store(Request $request) {
+        // dd($request->all());
+        $validator = Validator::make($request->all(), Todo::$rules, Todo::$messages);
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+            // return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
+        }
 
         $done = ($request->input('done')) ? $request->input('done') : 1;
-        $progress = ($done == 2) ? 100 : $request->intput('progress');
+        $progress = ($done == 2) ? 100 : $request->input('progress');
         
         Todo::Create([
             'title' => $request->input('title'),
             'done' => $done,
-            'progress' => $request->input('progress')
+            'progress' => $progress
         ]);
-        //dd($request->all());
+
         return redirect('/manage/dashboard');
     }
 
@@ -36,7 +43,7 @@ class TodoController extends Controller
     }
 
     public function show($id) {
-        $todos['tasks'] = Todo::find($id);
-        return view('manage.todo')->with($todos);
+        $todos = Todo::find($id);
+        return view('manage.todo', ['todos' => $todos]);
     }
 }
