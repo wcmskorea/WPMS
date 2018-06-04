@@ -14,6 +14,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/bower/Ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="/bower/admin-lte/dist/css/AdminLTE.min.css" type="text/css" />
     <link rel="stylesheet" href="/bower/admin-lte/dist/css/skins/skin-purple.min.css" type="text/css" />
+    <link rel='stylesheet' href='/bower/toastr/toastr.min.css'/>
     <link rel="stylesheet" href="/css/layout.css" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,13 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="/bower/jquery/dist/jquery.min.js"></script>
     <script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/bower/admin-lte/dist/js/adminlte.min.js"></script>
-    <!-- AJAX CRUD operations -->
-    <script type="text/javascript">
-      // add a new post
-      $(document).on('click', '#addNewTodo', function() {
-          $('.modal-title').text('할일 신규 등록하기');
-          $('#modal-todo-add').modal('show');
-      });
-    </script>
+    <script src='/bower/toastr/toastr.min.js'></script>
+    <script src="/js/wpms.js"></script>
   </body>
 </html>

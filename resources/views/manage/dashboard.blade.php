@@ -15,7 +15,7 @@
     <!-- Box -->
     <div class="box box-primary">
 
-      @include('manage.todoList')
+      @include('manage.todo.todoList')
 
     </div><!-- /.box -->
   </div><!-- /.col -->
@@ -40,7 +40,7 @@
 </div><!-- /.row -->
 
 <!-- /.modal -->
-<div class="modal fade" id="modal-todo-add">
+<div class="modal fade" id="modal-todo">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -49,19 +49,28 @@
         <h4 class="modal-title">Primary Modal</h4>
       </div>
       <div class="modal-body">
-        
-      <form method="post" action='/manage/todo'>
+
+      <div class="alert alert-danger alert-dismissible hidden">
+        <h4><i class="icon fa fa-ban"></i>확인 하세요!</h4>
+        <ul>
+        </ul>
+      </div>
+
+      <form id="todoForm" method="post" action='/manage/todo'>
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+        <input type="hidden" name="id" id="todoId" value="" />
         <div class="row">
           <div class="col-xs-8 col-sm-9">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-list"></i></span>
-              <input type="text" name="title" class="form-control" id="inputTodo" placeholder="할일 제목">
+              <input type="text" name="title" class="form-control" id="todoTitle" placeholder="할일 제목">
+              <p class="errorTitle text-center alert alert-danger hidden"></p>
             </div>
           </div>
           <div class="col-xs-4 col-sm-3">
             <div class="input-group">
-              <input type="text" name="progress" class="form-control" id="inputProgress" placeholder="진행률">
+              <input type="text" name="progress" class="form-control" id="todoProgress" placeholder="진행률">
+              <p class="errorProgress text-center alert alert-danger hidden"></p>
               <span class="input-group-addon">%</span>
             </div>
           </div>
@@ -71,8 +80,8 @@
 
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-primary add" data-dismiss="modal">
-              <span id="" class='glyphicon glyphicon-check'></span> 저장하기
+          <button id="todoSubmit" type="button" class="btn btn-primary add" data-dismiss="modal">
+              <span class='glyphicon glyphicon-check'></span> 저장하기
           </button>
           <button type="button" class="btn btn-default" data-dismiss="modal">
               <span class='glyphicon glyphicon-remove'></span> 취소

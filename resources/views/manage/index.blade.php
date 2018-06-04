@@ -1,6 +1,6 @@
 @extends('layouts.manage')
 
-@section('title') {{ $title }} @endsection
+@section('title') {{ $title or "WPMS v1.0" }} @endsection
 
 @section('content')
 <div class="wrapper">

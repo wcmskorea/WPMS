@@ -11,7 +11,7 @@ class Todo extends Model
 
     public static $rules = [
         'title' => 'required',
-        'progress' => 'required|numeric|max:3'
+        'progress' => 'required|numeric'
     ];
 
     public static $messages = [

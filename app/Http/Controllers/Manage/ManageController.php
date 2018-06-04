@@ -28,7 +28,7 @@ class ManageController extends Controller
             $color = 'success';
         }
         
-        return view('manage.todo', ['todos' => $todos, 'color' => $color]);
+        return view('manage.index', ['todos' => $todos, 'color' => $color]);
         // return view('manage.index', ['title' => 'WPMS v1.0', 'page_title' => 'Dashboard', 'page_description' => 'Control panel'])->with($todos);
     }
 }
