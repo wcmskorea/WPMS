@@ -24,8 +24,20 @@ class TodoController extends Controller
     public function index() {
 
         // $todos = Todo::all();
-        $todos = Todo::orderBy('created_at', 'desc')->where('progress', '<', 100)->paginate(5);
+        $todos = Todo::orderBy('progress', 'desc')->where('done', '=', 0)->paginate(10);
+        foreach($todos as $todo) {
+            if($todo['progress'] < 30) {
+                array_add($todo, 'color', 'danger');
+            } else if($todo['progress'] < 60){
+                array_add($todo, 'color', 'warning');
+            } else if($todo['progress'] < 90){
+                array_add($todo, 'color', 'info');
+            } else {
+                array_add($todo, 'color', 'success');
+            }
+        }
 
+        $done = Todo::withTrashed()->orderBy('updated_at', 'desc')->where('done', '=', 1)->paginate(10);
         foreach($todos as $todo) {
             if($todo['progress'] < 30) {
                 array_add($todo, 'color', 'danger');
@@ -38,7 +50,7 @@ class TodoController extends Controller
             }
         }
         
-        return view('manage.index', ['todos' => $todos]);
+        return view('manage.todo.index', ['todos' => $todos, 'done' => $done]);
 
     }
 
@@ -90,12 +102,5 @@ class TodoController extends Controller
         $post->delete();
 
         return response()->json($post);
-    }
-
-    public function show($id) {
-
-        $todos = Todo::findOrFail($id);
-        return view('manage.index', ['todos' => $todos]);
-
     }
 }

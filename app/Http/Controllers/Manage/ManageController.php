@@ -17,7 +17,7 @@ class ManageController extends Controller
     public function dashboard() {
         // $todos = Todo::all();
         // withTrashed(), onlyTrashed()
-        $todos = Todo::orderBy('created_at', 'desc')->paginate(5);
+        $todos = Todo::orderBy('created_at', 'desc');
 
         foreach($todos as $todo) {
             if($todo['progress'] < 30) {

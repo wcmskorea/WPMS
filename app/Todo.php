@@ -20,9 +20,9 @@ class Todo extends Model
 
     public static $messages = [
         'title.required' => '할일 제목은 필수 입력사항 입니다.',
-        'progress.required'  => '진행률은 필수 입력사항 입니다.',
-        'progress.numeric'  => '진행률은 숫자만 입력하실 수 있습니다.',
-        'progress.max'  => '진행률은 최대 3자리까지 입력하실 수 있습니다.',
+        'progress.required'  => '가중치는 필수 입력사항 입니다.',
+        'progress.numeric'  => '가중치는 숫자만 입력하실 수 있습니다.',
+        'progress.max'  => '가중치는 최대 3자리까지 입력하실 수 있습니다.',
     ];
 
     //
