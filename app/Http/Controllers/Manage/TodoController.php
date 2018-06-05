@@ -8,6 +8,7 @@ use Response;
 
 class TodoController extends Controller
 {
+
     protected $rules = [
         'title' => 'required',
         'progress' => 'required|numeric|min:1|max:100'
@@ -23,19 +24,21 @@ class TodoController extends Controller
     public function index() {
 
         // $todos = Todo::all();
-        $todos = Todo::orderBy('created_at', 'desc')->paginate(5);
+        $todos = Todo::orderBy('created_at', 'desc')->where('progress', '<', 100)->paginate(5);
 
-        if($todos['progress'] < 30) {
-            $color = 'danger';
-        } else if($todos['progress'] < 60){
-            $color = 'warning';
-        } else if($todos['progress'] < 90){
-            $color = 'info';
-        } else {
-            $color = 'success';
+        foreach($todos as $todo) {
+            if($todo['progress'] < 30) {
+                array_add($todo, 'color', 'danger');
+            } else if($todo['progress'] < 60){
+                array_add($todo, 'color', 'warning');
+            } else if($todo['progress'] < 90){
+                array_add($todo, 'color', 'info');
+            } else {
+                array_add($todo, 'color', 'success');
+            }
         }
         
-        return view('manage.todo', ['todos' => $todos, 'color' => $color]);
+        return view('manage.index', ['todos' => $todos]);
 
     }
 
@@ -54,14 +57,14 @@ class TodoController extends Controller
             // 데이터 수정
             $post = Todo::findOrFail($request->input('id'));
             $post->title = $request->input('title');
-            $post->done = ($request->input('done')) ? $request->input('done') : 1;
+            $post->done = 0;
             $post->progress = ($post->done == 2) ? 100 : $request->input('progress');   
             $post->save();
         } else {
             // 데이터 신규저장
             $post = new Todo();
             $post->title = $request->input('title');
-            $post->done = ($request->input('done')) ? $request->input('done') : 1;
+            $post->done = 0;
             $post->progress = ($post->done == 2) ? 100 : $request->input('progress');        
             $post->save();
         }
@@ -71,14 +74,28 @@ class TodoController extends Controller
 
     }
 
-    public function update(Request $request, $id) {
-        
+    public function changeStatus(Request $request) 
+    {
+
+        $post = Todo::findOrFail($request->input('id'));
+        $post->done = (!$post->done) ? 1 : 0;
+        $post->save();
+
+        return response()->json($post);
+    }
+
+    public function destroy($id)
+    {
+        $post = Todo::findOrFail($id);
+        $post->delete();
+
+        return response()->json($post);
     }
 
     public function show($id) {
 
-        $todos = Todo::find($id);
-        return view('manage.todo', ['todos' => $todos]);
+        $todos = Todo::findOrFail($id);
+        return view('manage.index', ['todos' => $todos]);
 
     }
 }

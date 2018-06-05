@@ -3,11 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Todo extends Model
 {
-    protected $page_title = 'Todo List';
-    protected $page_description = '우리가 할일을 정리합니다.';
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+
+    // protected $page_title = 'Todo List';
+    // protected $page_description = '우리가 할일을 정리합니다.';
 
     public static $rules = [
         'title' => 'required',
