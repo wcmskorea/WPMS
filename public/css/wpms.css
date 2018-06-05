@@ -110,3 +110,8 @@ body input, body textarea, body select, body table {
   font-family: 'Montserrat','나눔바른고딕',NanumBarunGothic,ng,'맑은 고딕','Malgun Gothic','돋움',Dotum,'애플 SD 산돌고딕 Neo','Apple SD Gothic Neo',AppleGothic,Helvetica,sans-serif;
   font-size: 13px;
 }
+
+/* Todo List Toggle CSS */
+.todo-list > li.done { color: #999; }
+.todo-list > li.done .text { text-decoration: line-through; font-weight: 500; }
+.todo-list > li.done .label { background: #d2d6de !important; }

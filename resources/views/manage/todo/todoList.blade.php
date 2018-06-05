@@ -7,7 +7,7 @@
   <ul class="todo-list">
   
   @foreach($todos as $todo)
-  <li class="item{{$todo->id}} @if($todo->done) danger @endif">
+  <li class="item{{$todo->id}} @if($todo->done) danger done @endif">
     <!-- drag handle -->
     <span class="handle">
       <i class="fa fa-ellipsis-v"></i>
@@ -16,7 +16,7 @@
     <!-- checkbox -->
     <input type="checkbox" class="published" data-id="{{$todo->id}}" @if ($todo->done) checked @endif>
     <!-- todo text -->
-    <span class="text">@if($todo->done) <strike> @endif{{ $todo['title'] }}@if($todo->done) </strike> @endif</span>
+    <span class="text"> {{ $todo['title'] }} </span>
     <!-- Emphasis label -->
     <small class="label label-{{ $todo['color'] }}"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $todo->updated_at)->diffForHumans() }}</small>
     <!-- General tools such as edit or delete-->

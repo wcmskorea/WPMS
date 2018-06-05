@@ -40,7 +40,7 @@ $(document).ready(function()
     });
     // Todo - Ajax Done
     $('.published').change(function() {
-        $(this).closest('li').toggleClass('danger');
+        $(this).closest('li').toggleClass('danger done');
         $.ajax({
             type: 'POST',
             url: "/manage/todo/changeStatus",
