@@ -61,15 +61,17 @@
           </ul>
         </div>
         <div class="row">
-          <div class="col-xs-8 col-sm-9">
+          <div class="form-group has-warning col-xs-8 col-sm-9">
+            <label class="control-label" for="title"><i class="fa fa-check"></i> 할일 제목</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-list"></i></span>
               <input type="text" name="title" class="form-control active" id="todoTitle" placeholder="할일 제목">
             </div>
           </div>
-          <div class="col-xs-4 col-sm-3">
+          <div class="form-group has-warning col-xs-4 col-sm-3">
+            <label class="control-label" for="progress"><i class="fa fa-check"></i> 중요도 (1~100)</label>
             <div class="input-group">
-              <input type="text" name="progress" class="form-control" id="todoProgress" placeholder="진행률">
+              <input type="text" name="progress" class="form-control" id="todoProgress" placeholder="중요도">
               <span class="input-group-addon">%</span>
             </div>
           </div>

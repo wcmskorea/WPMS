@@ -81,11 +81,4 @@ $(document).ready(function()
         $('#todoSubmit').html("삭제하기");
         $('.modal-body > .alert').addClass('hidden');
     });
-    // jQuery UI sortable for the todo list
-    $('.todo-list').sortable({
-        placeholder         : 'sort-highlight',
-        handle              : '.handle',
-        forcePlaceholderSize: true,
-        zIndex              : 999999
-    });
 });

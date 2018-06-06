@@ -34,7 +34,7 @@
         <!-- Box -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">To Do List</h3>
+            <h3 class="box-title">ToDo List</h3>
             <div class="box-tools pull-right"></div>
           </div>
           <div class="box-body">
@@ -90,12 +90,13 @@
                 <input type="checkbox" class="published" data-id="{{$todo->id}}" @if ($todo->done) checked @endif>
                 <!-- todo text -->
                 <span class="text"> {{ $todo['title'] }} </span>
+                <small class="label label-default pull-right">{{ $todo['progress'] }}%</small>
                 <!-- Emphasis label -->
                 <small class="label label-{{ $todo['color'] }}"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $todo->updated_at)->diffForHumans() }}</small>
                 <!-- General tools such as edit or delete-->
                 <div class="tools">
                   <i class="fa fa-edit todoListEdit" data-id="{{ $todo['id'] }}" data-title="{{ $todo['title'] }}" data-progress="{{ $todo['progress'] }}" data-toggle="modal" data-target="#modal-todo"></i>
-                  <i class="fa fa-trash-o todoListDel" data-id="{{ $todo['id'] }}" data-title="{{ $todo['title'] }}" data-progress="{{ $todo['progress'] }}" data-toggle="modal" data-target="#modal-todo"></i>
+                  @if (!$todo->deleted_at)<i class="fa fa-trash-o todoListDel" data-id="{{ $todo['id'] }}" data-title="{{ $todo['title'] }}" data-progress="{{ $todo['progress'] }}" data-toggle="modal" data-target="#modal-todo"></i>@endif
                 </div>
               </li>
               @endforeach

@@ -17,41 +17,31 @@ class TodoController extends Controller
         'title.required' => '할일 제목은 필수 입력사항 입니다.',
         'progress.required'  => '진행률은 필수 입력사항 입니다.',
         'progress.numeric'  => '진행률은 숫자만 입력하실 수 있습니다.',
-        'progress.min'  => '진행률은 1~100까지 입력하실 수 있습니다.',
-        'progress.max'  => '진행률은 1~100까지 입력하실 수 있습니다.',
+        'progress.min'  => '중요도는 1~100까지 입력하실 수 있습니다.',
+        'progress.max'  => '중요도는 1~100까지 입력하실 수 있습니다.',
     ];
     //
     public function index() {
-
-        // $todos = Todo::all();
+        // 진행중인 목록
         $todos = Todo::orderBy('progress', 'desc')->where('done', '=', 0)->paginate(10);
         foreach($todos as $todo) {
             if($todo['progress'] < 30) {
-                array_add($todo, 'color', 'danger');
-            } else if($todo['progress'] < 60){
-                array_add($todo, 'color', 'warning');
-            } else if($todo['progress'] < 90){
-                array_add($todo, 'color', 'info');
-            } else {
                 array_add($todo, 'color', 'success');
+            } else if($todo['progress'] < 60){
+                array_add($todo, 'color', 'info');
+            } else if($todo['progress'] < 90){
+                array_add($todo, 'color', 'warning');
+            } else {
+                array_add($todo, 'color', 'danger');
             }
         }
-
-        $done = Todo::withTrashed()->orderBy('updated_at', 'desc')->where('done', '=', 1)->paginate(10);
+        // 완료된 목록
+        $done = Todo::withTrashed()->orderBy('progress', 'desc')->where('done', '=', 1)->paginate(10);
         foreach($todos as $todo) {
-            if($todo['progress'] < 30) {
-                array_add($todo, 'color', 'danger');
-            } else if($todo['progress'] < 60){
-                array_add($todo, 'color', 'warning');
-            } else if($todo['progress'] < 90){
-                array_add($todo, 'color', 'info');
-            } else {
-                array_add($todo, 'color', 'success');
-            }
+            array_add($todo, 'color', 'success');
         }
         
         return view('manage.todo.index', ['todos' => $todos, 'done' => $done]);
-
     }
 
     public function store(Request $request) {

@@ -28,6 +28,8 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
+            // 설치가 되었는지 검사
+            \App\Http\Middleware\CheckInstall::class,
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
@@ -41,6 +43,16 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
+
+        'install' => [
+            \App\Http\Middleware\CheckInstallAlready::class,
+            \App\Http\Middleware\CheckAccessFolder::class,
+            // \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            // 설치 과정에서 필요한 폴더 읽고 쓰기 가능한지 검사
+        ]
     ];
 
     /**

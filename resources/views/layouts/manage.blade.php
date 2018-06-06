@@ -16,6 +16,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/bower/admin-lte/dist/css/skins/skin-purple.min.css" type="text/css" />
     <link rel='stylesheet' href='/bower/toastr/toastr.min.css'/>
     <link rel="stylesheet" href="/css/wpms.css" type="text/css" />
+    @yield('add_css')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,5 +34,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="/bower/admin-lte/dist/js/adminlte.min.js"></script>
     <script src='/bower/toastr/toastr.min.js'></script>
     <script src="/js/wpms.js"></script>
+    @yield('add_js')
   </body>
 </html>
