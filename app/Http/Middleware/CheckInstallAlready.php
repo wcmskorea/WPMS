@@ -19,8 +19,8 @@ class CheckInstallAlready
     {
         $file = '.env';
         $path = base_path($file);
-        if(File::exists($path) && config('database.connections.mysql.database') && config('database.connections.mysql.username') ) {
-            return view('install.error', ['type' => 'already']);
+        if(File::exists($path) && config('database.connections.mysql.database') && config('database.connections.mysql.username') && config('database.connections.mysql.password') ) {
+            return "설치하자~";
         } else {
             return $next($request);
         }

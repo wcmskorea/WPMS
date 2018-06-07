@@ -2,6 +2,10 @@
 
 @section('title') {{ $title or "WPMS v1.0" }} @endsection
 
+@section('body_class')
+hold-transition skin-purple sidebar-mini
+@endsection
+
 @section('content')
 <div class="wrapper">
 

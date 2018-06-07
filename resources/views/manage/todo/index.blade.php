@@ -90,9 +90,9 @@
                 <input type="checkbox" class="published" data-id="{{$todo->id}}" @if ($todo->done) checked @endif>
                 <!-- todo text -->
                 <span class="text"> {{ $todo['title'] }} </span>
-                <small class="label label-default pull-right">{{ $todo['progress'] }}%</small>
+                @if ($todo->deleted_at)<small class="label label-default pull-right">삭제됨</small>@else<small class="label label-default pull-right">{{ $todo['progress'] }}%</small>@endif
                 <!-- Emphasis label -->
-                <small class="label label-{{ $todo['color'] }}"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $todo->updated_at)->diffForHumans() }}</small>
+                <small class="label label-{{ $todo['color'] }}"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $todo->updated_at)->diffForHumans() }}</small>                
                 <!-- General tools such as edit or delete-->
                 <div class="tools">
                   <i class="fa fa-edit todoListEdit" data-id="{{ $todo['id'] }}" data-title="{{ $todo['title'] }}" data-progress="{{ $todo['progress'] }}" data-toggle="modal" data-target="#modal-todo"></i>

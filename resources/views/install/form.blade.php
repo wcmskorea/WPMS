@@ -1,9 +1,40 @@
-@extends('install.layout')
+@extends('layouts.manage')
 
-@section('title'){{ config('app.name')." 초기환경설정 2/3" }}@endsection
+@section('title')OOPS! {{ config('app.name') }} 라이센스 확인@endsection
 
-@section('step')
-    INSTALLATION
+@section('add_css')<link rel="stylesheet" href="/bower/admin-lte/plugins/iCheck/square/blue.css">@endsection
+@section('body_class')hold-transition register-page @endsection
+
+@section('content')
+<div class="register-box">
+    <div class="register-logo">
+        <a href="/"><b>WPMS</b> v1.0</a>
+    </div>
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li><a href="#tab_1">1. 라이센스</a></li>
+            <li class="active"><a href="#tab_2"><strong class="text-light-blue">2. 초기설정</strong></a></li>
+            <li><a href="#tab_3">3. 설치완료</a></li>
+        </ul>
+        <form action="{{ route('install.setup') }}" method="post" autocomplete="off" onsubmit="return checkSubmit(this);">
+        {{ csrf_field() }}
+        <div class="tab-content">
+            <div class="tab-pane active">
+                <br>
+                <p class="login-box-msg"><strong class="st_strong">라이센스(License) 내용을 반드시 확인하십시오.</strong><br>라이센스에 동의하시는 경우에만 설치가 진행됩니다.</p>
+                <textarea class="license">
+그냥 쓰세요~ 편하게~
+                </textarea>
+            </div>
+        </div><!-- /.tab-content -->
+        <div class="register-box-body">
+            <p class="login-box-msg"><label><input type="checkbox" name="agree" value="yes"> 동의 합니다.</label></p>
+            <button type="submit" class="btn btn-primary btn-block btn-flat">다음단계</a>
+        </div>
+        </form>
+    </div><!-- /.nav-tabs-custom -->
+</div><!-- /.register-box -->
+
 @endsection
 
 @section('content')

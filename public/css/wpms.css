@@ -103,13 +103,17 @@ body, input, textarea, select, table {
 /*desktop 분기*/
 body {
   font-family: 'Montserrat','나눔바른고딕',NanumBarunGothic,ng,'맑은 고딕','Malgun Gothic','돋움',Dotum,'애플 SD 산돌고딕 Neo','Apple SD Gothic Neo',AppleGothic,Helvetica,sans-serif;
-  font-size: 13px;
+  font-size: 14px;
 }
   
 body input, body textarea, body select, body table {
   font-family: 'Montserrat','나눔바른고딕',NanumBarunGothic,ng,'맑은 고딕','Malgun Gothic','돋움',Dotum,'애플 SD 산돌고딕 Neo','Apple SD Gothic Neo',AppleGothic,Helvetica,sans-serif;
-  font-size: 13px;
+  font-size: 14px;
 }
+
+/* Install Box */
+.tab-content .tab-pane { padding: 10px }
+.license {width: 100%; background:#efefef; border:1px solid #d8d8d8; height:300px; overflow-x:none; outline:0; padding:15px; font-size:12px; line-height:1.7;}
 
 /* Todo List Toggle CSS */
 .todo-list > li.done { color: #999; }
