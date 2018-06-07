@@ -22,8 +22,8 @@ class CheckInstall
         $file = '.env';
         $path = base_path($file);
         try {
-            if(File::exists($path) && config('database.connections.mysql.database') && config('database.connections.mysql.username') && config('database.connections.mysql.password') ) {
-            // if(File::exists($path) && config('database.connections.mysql.database') && config('database.connections.mysql.username')) {
+            // if(File::exists($path) && config('database.connections.mysql.database') && config('database.connections.mysql.username') && config('database.connections.mysql.password') ) {
+            if(File::exists($path) && config('database.connections.mysql.database') && config('database.connections.mysql.username')) {
                 // DB 연결 확인
                 DB::connection()->getPdo();
                 return $next($request);

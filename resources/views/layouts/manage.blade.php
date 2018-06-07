@@ -28,6 +28,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     
     @yield('content')
 
+    @yield('modal_todo')
+
     <!-- REQUIRED JS SCRIPTS -->
     <script src="/bower/jquery/dist/jquery.min.js"></script>
     <script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script>

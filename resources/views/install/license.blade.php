@@ -3,7 +3,7 @@
 @section('title')OOPS! {{ config('app.name') }} 라이센스 확인@endsection
 
 @section('add_css')<link rel="stylesheet" href="/bower/admin-lte/plugins/iCheck/square/blue.css">@endsection
-@section('body_class')hold-transition register-page @endsection
+@section('body_class'){{ "hold-transition register-page" }}@endsection
 
 @section('content')
 <div class="register-box">

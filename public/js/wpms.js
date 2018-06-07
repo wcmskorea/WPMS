@@ -3,6 +3,13 @@ $(document).ready(function()
     toastr.options.positionClass = 'toast-bottom-right';
     toastr.options.progressBar = true;
 
+    // 모든 ajax 통신에 token을 자동으로 추가
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
     //Todo - ajax post
     $("#todoSubmit").click(function() {
         // $("#todoForm").submit();
@@ -12,7 +19,6 @@ $(document).ready(function()
             url: url,
             type: method,
             data: {
-                '_token': $('input[name=_token]').val(),
                 'id': $('#todoId').val(),
                 'title': $('#todoTitle').val(),
                 'progress': $('#todoProgress').val()
@@ -45,7 +51,6 @@ $(document).ready(function()
             type: 'POST',
             url: "/manage/todo/changeStatus",
             data: {
-                '_token': $('input[name=_token]').val(),
                 'id': $(this).data('id')
             },
             success: function(data) {                

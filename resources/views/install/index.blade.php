@@ -2,9 +2,7 @@
 
 @section('title')OOPS! {{ config('app.name') }} 설치하기@endsection
 
-@section('body_class')
-hold-transition register-page
-@endsection
+@section('body_class'){{ "hold-transition register-page" }}@endsection
 
 @section('content')
 <div class="register-box">
