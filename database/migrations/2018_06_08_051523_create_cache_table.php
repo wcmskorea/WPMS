@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddProgressToTodosTable extends Migration
+class CreateCacheTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddProgressToTodosTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('todos', function($table){
-            $table->tinyInteger('progress');
+        Schema::create('cache', function (Blueprint $table) {
+            $table->string('key')->unique();
+            $table->mediumText('value');
+            $table->integer('expiration');
         });
     }
 
@@ -26,6 +27,6 @@ class AddProgressToTodosTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('cache');
     }
 }

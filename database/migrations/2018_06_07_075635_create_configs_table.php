@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddSoftDeletes extends Migration
+class CreateConfigsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddSoftDeletes extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('todos', function($table){
-            $table->softDeletes();
+        Schema::create('configs', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->text('vars');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +28,6 @@ class AddSoftDeletes extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('configs');
     }
 }

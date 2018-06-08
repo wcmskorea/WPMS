@@ -1,7 +1,5 @@
 @extends('layouts.manage')
-
 @section('title') {{ $title or "WPMS v1.0" }} @endsection
-
 @section('body_class'){{ "hold-transition skin-purple sidebar-mini" }}@endsection
 
 @section('content')
@@ -9,7 +7,6 @@
 
   <!-- Header -->
   @include('manage.header')
-
   <!-- Sidebar -->
   @include('manage.sidebar')
 
@@ -34,15 +31,12 @@
       <!-- Your Page Content Here -->
       @include('manage.dashboard')
     </section><!-- /.content -->
+    
   </div><!-- /.content-wrapper -->
 
   <!-- Footer -->
   @include('manage.footer')
-
   <!-- Side Panel -->
   @include('manage.sidepanel')
-
-  <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
 </div><!-- ./wrapper -->
 @endsection

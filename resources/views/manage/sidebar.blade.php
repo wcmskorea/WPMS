@@ -7,12 +7,12 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="/bower/admin-lte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        <img src="/bower/admin-lte/dist/img/user2-160x160.jpg" class="img-rounded" alt="User Image">
       </div>
       <div class="pull-left info">
         <p>(주)10억홈피</p>
         <!-- Status -->
-        <a href="#"><i class="fa fa-home text-success"></i> 홈페이지 바로가기</a>
+        <a href="/"><i class="fa fa-home text-success"></i> 홈페이지 바로가기</a>
       </div>
     </div>
 
@@ -32,23 +32,34 @@
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">Main Navigation</li>
       <!-- Optionally, you can add icons to the links -->
-      <li class="active"><a href="#"><i class="fa fa-gears"></i> <span>환경설정</span></a></li>
-      <li class="treeview">
-        <a href="#"><i class="fa fa-user"></i> <span>회원관리</span>
-          <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+      <li class="treeview" id="treeConfig">
+        <a href="#"><i class="fa fa-gear"></i> <span>환경설정</span>
+          <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{ route('manage.config') }}"><i class="fa fa-angle-right"></i> 사이트 설정</a></li>
+        </ul>
+      </li>
+      <li class="treeview" id="treeProject">
+        <a href="#"><i class="fa fa-user"></i> <span>프로젝트</span>
+          <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{ route('todo.index') }}"><i class="fa fa-angle-right"></i> 할일목록</a></li>
+        </ul>
+      </li>
+      <li class="treeview" id="treeUser">
+        <a href="#"><i class="fa fa-link"></i> <span>자원관리</span>
+          <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
         </a>
         <ul class="treeview-menu">
           <li><a href="#">Link in level 2</a></li>
           <li><a href="#">Link in level 2</a></li>
         </ul>
       </li>
-      <li class="treeview">
+      <li class="treeview" id="treeDocu">
         <a href="#"><i class="fa fa-link"></i> <span>문서관리</span>
-          <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+          <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
         </a>
         <ul class="treeview-menu">
           <li><a href="#">Link in level 2</a></li>

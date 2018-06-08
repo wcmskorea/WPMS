@@ -1,5 +1,5 @@
 <div class="box-header with-border">
-  <h3 class="box-title">To Do List</h3>
+  <h3 class="box-title"><i class="fa fa-tasks"></i> To Do List</h3>
   <div class="box-tools pull-right"></div>
 </div>
 <div class="box-body">
@@ -28,6 +28,6 @@
   </ul>
 </div><!-- /.box-body-->
 <div class="box-footer clearfix no-border">
-  <button type="button" class="btn btn-primary pull-right" id="addNewTodo" data-toggle="modal" data-target="#modal-todo"><i class="fa fa-plus"></i> 할일 추가하기</button>
-  <a href="/manage/todo/" class="btn btn-default">More</a>
+  <button type="button" class="btn btn-danger pull-right" id="addNewTodo" data-toggle="modal" data-target="#modal-todo"><i class="fa fa-plus"></i>&nbsp;&nbsp;할일 추가하기</button>
+  <a href="/manage/todo/" class="btn btn-default">전체보기 <i class="fa fa-arrow-circle-right"></i></a>
 </div>

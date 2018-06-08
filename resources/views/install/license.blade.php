@@ -2,7 +2,7 @@
 
 @section('title')OOPS! {{ config('app.name') }} 라이센스 확인@endsection
 
-@section('add_css')<link rel="stylesheet" href="/bower/admin-lte/plugins/iCheck/square/blue.css">@endsection
+@section('add_css')<link rel="stylesheet" href="/bower/admin-lte/plugins/iCheck/square/red.css">@endsection
 @section('body_class'){{ "hold-transition register-page" }}@endsection
 
 @section('content')

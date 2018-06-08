@@ -60,7 +60,7 @@ $(document).ready(function()
     });
     // Todo - Ajax Add
     $('#addNewTodo').click(function() {
-        $('.modal-title').text('할일 추가하기');
+        $('.modal-title > span').text('할일 추가하기');
         $('#todoId').val('').prop('disabled', false);
         $('#todoTitle').val('').prop('disabled', false);
         $('#todoProgress').val('').prop('disabled', false);
@@ -69,7 +69,7 @@ $(document).ready(function()
     });
     // Todo - Ajax Edit
     $('.todoListEdit').click(function() {
-        $('.modal-title').text('할일 수정하기');
+        $('.modal-title > span').text('할일 수정하기');
         $("#todoMethod").val('POST');
         $('#todoId').val($(this).data('id')).prop('disabled', false);
         $('#todoTitle').val($(this).data('title')).prop('disabled', false);
@@ -78,7 +78,7 @@ $(document).ready(function()
     });
     // Todo - Ajax Delete
     $('.todoListDel').click(function() {
-        $('.modal-title').text('정말 삭제하시겠어요?');
+        $('.modal-title > span').text('정말 삭제하시겠어요?');
         $("#todoMethod").val('DELETE');
         $('#todoId').val($(this).data('id')).prop('disabled', true);
         $('#todoTitle').val($(this).data('title')).prop('disabled', true);

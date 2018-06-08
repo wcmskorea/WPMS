@@ -115,7 +115,15 @@ body input, body textarea, body select, body table {
 .tab-content .tab-pane { padding: 10px }
 .license {width: 100%; background:#efefef; border:1px solid #d8d8d8; height:300px; overflow-x:none; outline:0; padding:15px; font-size:12px; line-height:1.7;}
 
+/* Dashboard Info-box */
+.info-box .info-box-content .progress .progress-bar { background-color:#ff7b00 }
+
 /* Todo List Toggle CSS */
 .todo-list > li.done { color: #999; }
 .todo-list > li.done .text { text-decoration: line-through; font-weight: 500; }
-.todo-list > li.done .label { background: #d2d6de !important; }
+.todo-list > li.done .label-default { background: #d2d2d2 !important; }
+/* Todo modal */
+h4.modal-title { font-weight:600 }
+
+/* Config */
+.nav-tabs-custom .nav li.active { border-color:#dd4b39 }
