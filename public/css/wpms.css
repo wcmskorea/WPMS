@@ -95,18 +95,13 @@ nav .nav-list .sub-menu .sub-menu-list {
   src: url("//cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/v1/NanumBarunGothic-Light.eot?#iefix") format("embedded-opentype"), url("//cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/v1/NanumBarunGothic-Light.woff") format("woff"), url("//cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/v1/NanumBarunGothic-Light.ttf") format("truetype");
 }
 
-body, input, textarea, select, table {
-  font-family: "애플 SD 산돌고딕 Neo","Apple SD Gothic Neo",AppleGothic,Helvetica,sans-serif;
-  font-size: 13px;
-}
-
 /*desktop 분기*/
 body {
   font-family: 'Montserrat','나눔바른고딕',NanumBarunGothic,ng,'맑은 고딕','Malgun Gothic','돋움',Dotum,'애플 SD 산돌고딕 Neo','Apple SD Gothic Neo',AppleGothic,Helvetica,sans-serif;
   font-size: 14px;
 }
   
-body input, body textarea, body select, body table {
+body input, body textarea, body select, body table, small {
   font-family: 'Montserrat','나눔바른고딕',NanumBarunGothic,ng,'맑은 고딕','Malgun Gothic','돋움',Dotum,'애플 SD 산돌고딕 Neo','Apple SD Gothic Neo',AppleGothic,Helvetica,sans-serif;
   font-size: 14px;
 }
@@ -118,6 +113,8 @@ body input, body textarea, body select, body table {
 /* Dashboard Info-box */
 .info-box .info-box-content .progress .progress-bar { background-color:#ff7b00 }
 
+/* Todo */
+.menu > li > h3 { overflow: hidden; white-space:nowrap; text-overflow: ellipsis; }
 /* Todo List Toggle CSS */
 .todo-list > li.done { color: #999; }
 .todo-list > li.done .text { text-decoration: line-through; font-weight: 500; }

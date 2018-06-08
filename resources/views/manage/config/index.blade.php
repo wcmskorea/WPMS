@@ -28,11 +28,20 @@
         @if($errors->any())
         <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <h4><i class="icon fa fa-ban"></i>확인 하세요!</h4>
+        <h4><i class="icon fa fa-warning"></i>확인 하세요!</h4>
         <ul>
         @foreach($errors->all() as $message)
             <li>{{ $message }}</li>
         @endforeach
+        </ul>
+        </div>
+        @endif
+        @if(Session::has('message'))
+        <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-check"></i>Success!</h4>
+        <ul>
+            <li>{{ Session::get('message') }}</li>
         </ul>
         </div>
         @endif
@@ -76,35 +85,35 @@
                         <div class="form-group">
                             <label for="textFilter" class="col-sm-2 control-label">금지단어 필터링</label>
                             <div class="col-sm-10">
-                                <textarea name="filterwords" id="textFilter" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                <textarea name="filterwords" id="textFilter" class="form-control" rows="3" placeholder="Enter ...">{{ $configWebsite['filterwords'] }}</textarea>
                                 <p class="text-yellow"><i class="fa fa-exclamation"></i> 사이트내 불법광고 및 스팸, 비방성 글을 제한하기 위한 단어를 입력하세요.</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="textAllow" class="col-sm-2 control-label">접근허용 아이피</label>
                             <div class="col-sm-10">
-                                <textarea name="ipallow" id="textAllow" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                <textarea name="ipallow" id="textAllow" class="form-control" rows="3" placeholder="Enter ...">{{ $configWebsite['ipallow'] }}</textarea>
                                 <p class="text-yellow"><i class="fa fa-exclamation"></i> 접근허용 아이피는 관리자 페이지 접근에 한하여 제한됩니다.</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="textDeny" class="col-sm-2 control-label">접근차단 아이피</label>
                             <div class="col-sm-10">
-                                <textarea name="ipdeny" id="textDeny" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                <textarea name="ipdeny" id="textDeny" class="form-control" rows="3" placeholder="Enter ...">{{ $configWebsite['ipdeny'] }}</textarea>
                                 <p class="text-yellow"><i class="fa fa-exclamation"></i> 접근차단 아이피는 관리자 페이지 및 사용자 페이지까지 접근 제한됩니다.</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="textScript" class="col-sm-2 control-label">방문자분석 스크립트</label>
                             <div class="col-sm-10">
-                                <textarea name="script" id="textScript" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                <textarea name="script" id="textScript" class="form-control" rows="3" placeholder="Enter ...">{{ $configWebsite['script'] }}</textarea>
                                 <p class="text-yellow"><i class="fa fa-exclamation"></i> 구글이나 네이버의 Analytics와 같은 분석 스크립트를 삽입합니다.</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="textMeta" class="col-sm-2 control-label">추가 메타태그</label>
                             <div class="col-sm-10">
-                                <textarea name="metatag" id="textMeta" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                <textarea name="metatag" id="textMeta" class="form-control" rows="3" placeholder="Enter ...">{{ $configWebsite['metatag'] }}</textarea>
                                 <p class="text-yellow"><i class="fa fa-exclamation"></i> 사이트 인증이나, 기타 정보를 위한 메타 태그를 입력합니다.</p>
                             </div>
                         </div>

@@ -36,9 +36,9 @@ class ConfigController extends Controller
         $message = '';
 
         if($this->configModel->updateConfig($data)) {
-            $message = '기본환경설정 변경이 완료되었습니다.';
+            $message = '환경설정 > 사이트설정 변경이 정상 처리되었습니다.';
         } else {
-            $message = '기본환경설정 변경에 실패하였습니다.';
+            $message = '환경설정 > 사이트설정 변경 처리 실패입니다.';
         }
         return redirect(route('manage.config'))->with('message', $message);
     }

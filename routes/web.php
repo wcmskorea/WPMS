@@ -29,6 +29,7 @@ Route::group(['prefix' => 'manage'], function() {
 	Route::put('configs/update', ['as' => 'manage.config.update', 'uses' => 'Manage\ConfigController@update']);
 	// Todo
 	Route::post('todo/changeStatus', ['as' => 'todo.changeStatus', 'uses' => 'Manage\TodoController@changeStatus']);
+	Route::post('todo/checkNotification', ['as' => 'todo.checkNotification', 'uses' => 'Manage\TodoController@checkNotification']);
 	Route::resource('todo', 'Manage\TodoController');
 });
 

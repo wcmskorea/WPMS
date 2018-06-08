@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\Manage;
+<?php 
+
+namespace App\Http\Controllers\Manage;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,18 +23,18 @@ class TodoController extends Controller
     //     'progress.max'  => '중요도는 1~100까지 입력하실 수 있습니다.',
     // ];
     //
+    protected $output;
+
     public function index() {
         // 진행중인 목록
         $todos = Todo::where('done', 0)->orderBy('progress', 'desc')->get();
         foreach($todos as $todo) {
-            foreach($todos as $todo) {
-                if($todo['progress'] < 33) {
-                    array_add($todo, 'color', 'default');
-                } else if($todo['progress'] < 66){
-                    array_add($todo, 'color', 'warning');
-                } else {
-                    array_add($todo, 'color', 'danger');
-                }
+            if($todo['progress'] < 33) {
+                array_add($todo, 'color', 'default');
+            } else if($todo['progress'] < 66){
+                array_add($todo, 'color', 'warning');
+            } else {
+                array_add($todo, 'color', 'danger');
             }
         }
         // 완료된 목록
@@ -82,8 +84,37 @@ class TodoController extends Controller
 
     }
 
-    public function changeStatus(Request $request) 
-    {
+    public function checkNotification(Request $request) {
+        
+        $output = '';
+
+        // 진행중인 목록
+        $todos = Todo::where('done', 0)->orderBy('progress', 'desc')->get();
+        foreach($todos as $todo) {
+            $output .= '
+            <li><!-- Task item -->
+                <a href="#">
+                <!-- Task title and progress text -->
+                <h3>
+                    '.$todo['title'].'
+                    <small class="pull-right">'.$todo['progress'].'</small>
+                </h3>
+                <!-- The progress bar -->
+                <div class="progress xs">
+                    <!-- Change the css width attribute to simulate progress -->
+                    <div class="progress-bar progress-bar-warning" style="width: '.$todo['progress'].'%" role="progressbar"
+                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                    <span class="sr-only">'.$todo['progress'].'% Complete</span>
+                    </div>
+                </div>
+                </a>
+            </li>
+            ';
+        }
+        return response()->json(array('notification' => $output, 'count' => count($todos)));
+    }
+
+    public function changeStatus(Request $request) {
 
         $post = Todo::findOrFail($request->input('id'));
         $post->done = (!$post->done) ? 1 : 0;
@@ -92,11 +123,14 @@ class TodoController extends Controller
         return response()->json($post);
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $post = Todo::findOrFail($id);
         $post->delete();
 
         return response()->json($post);
+    }
+
+    public function show($id) {
+        //
     }
 }

@@ -37,7 +37,7 @@ $(document).ready(function()
                     if(data.deleted_at) {
                         toastr.error('정상적으로 삭제(id:' + data.id + ') 되었습니다!', '삭제완료!', {timeOut: 3000});    
                     } else {
-                        toastr.error('성공적으로 저장(id:' + data.id + ') 되었습니다!', '저장완료!', {timeOut: 3000});
+                        toastr.success('성공적으로 저장(id:' + data.id + ') 되었습니다!', '저장완료!', {timeOut: 3000});
                     }
                     setTimeout(function() { location.reload(); }, 2000);
                 }
@@ -54,7 +54,7 @@ $(document).ready(function()
                 'id': $(this).data('id')
             },
             success: function(data) {                
-                toastr.error('성공적으로 저장(id:' + data.id + ') 되었습니다!', '저장완료!', {timeOut: 3000});
+                toastr.success('성공적으로 저장(id:' + data.id + ') 되었습니다!', '저장완료!', {timeOut: 3000});
             },
         });
     });
@@ -86,4 +86,22 @@ $(document).ready(function()
         $('#todoSubmit').html("삭제하기");
         $('.modal-body > .alert').addClass('hidden');
     });
+
+    function load_notification()
+    {
+        $.ajax({
+            url: "/manage/todo/checkNotification",
+            method: "POST",
+            data: {},
+            success:function(data)
+            {
+                $('#task-list').html(data.notification);
+                if(data.count > 0) {
+                    $('span.count').html(data.count);
+                    $('li.tasks-header').html('총 <strong>' + data.count + '건</strong>');
+                }
+            }
+        });
+    }
+    load_notification();
 });
