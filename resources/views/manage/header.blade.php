@@ -49,7 +49,7 @@
             <span class="label label-danger count"></span>
           </a>
           <ul class="dropdown-menu">
-            <li class="header tasks-header">You have 9 tasks</li>
+            <li class="header task-header text-yellow">You have 9 tasks</li>
             <li>
               <!-- Inner menu: contains the tasks -->
               <ul class="menu" id="task-list">
@@ -62,7 +62,7 @@
           </ul>
         </li>
         <!-- User Account Menu -->
-        <li class="dropdown user user-menu">
+        <li class="dropdown user user-menu active">
           <!-- Menu Toggle Button -->
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <!-- hidden-xs hides the username on small devices so only the image appears. -->

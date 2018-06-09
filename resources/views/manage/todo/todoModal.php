@@ -25,9 +25,9 @@
             </div>
           </div>
           <div class="form-group has-error col-xs-4 col-sm-3">
-            <label class="control-label" for="progress"><i class="fa fa-check"></i> 중요도 (1~100)</label>
+            <label class="control-label" for="progress"><i class="fa fa-check"></i> 진행율 (1~100)</label>
             <div class="input-group">
-              <input type="text" name="progress" class="form-control" id="todoProgress" placeholder="중요도">
+              <input type="text" name="progress" class="form-control" id="todoProgress" placeholder="진행율">
               <span class="input-group-addon">%</span>
             </div>
           </div>

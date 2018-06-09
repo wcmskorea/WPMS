@@ -98,7 +98,7 @@ $(document).ready(function()
                 $('#task-list').html(data.notification);
                 if(data.count > 0) {
                     $('span.count').html(data.count);
-                    $('li.tasks-header').html('총 <strong>' + data.count + '건</strong>');
+                    $('li.task-header').html('진행중인 <strong>' + data.count + ' 건</strong>');
                 }
             }
         });

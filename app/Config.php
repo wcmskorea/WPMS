@@ -7,19 +7,21 @@ use Cache;
 
 class Config extends Model
 {
-    protected $fillable = ['title', 'done', 'progress'];
+    protected $fillable = ['title', 'description', 'keywords', 'agree'];
 
     public static $rules = [
         // 'title' => 'bail|required|alpha_dash',
         'title' => 'required|string|min:1|max:45',
         'description' => 'required|string|min:1|max:100',
         'keywords' => 'required',
+        'agree' => 'required',
     ];
 
     public static $messages = [
         'title.required' => '사이트 제목은 필수 입력사항 입니다.',
         'description.required'  => '사이트 설명은 필수 입력사항 입니다.',
         'keywords.required'  => '사이트 키워드는 필수 입력사항 입니다.',
+        'agree.required'  => '관리자 정보호보 서약은 필수 선택사항  입니다.',
         'title.min'  => '사이트 제목은 1~45자까지 입력하실 수 있습니다.',
         'title.max'  => '사이트 제목은 1~45자까지 입력하실 수 있습니다.',
         'description.min'  => '사이트 설명은 1~100자까지 입력하실 수 있습니다.',

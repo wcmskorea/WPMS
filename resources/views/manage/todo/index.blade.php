@@ -44,7 +44,7 @@
               <input type="checkbox" class="published" data-id="{{$todo->id}}" @if ($todo->done) checked @endif>
               <!-- todo text -->
               <span class="text"> {{ $todo['title'] }} </span>
-              <small class="label label-default pull-right">{{ $todo['progress'] }}</small>
+              <small class="label label-default pull-right">{{ $todo['progress'] }}%</small>
               <!-- Emphasis label -->
               <small class="label label-{{ $todo['color'] }}"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $todo->updated_at)->diffForHumans() }}</small>
               <!-- General tools such as edit or delete-->
@@ -78,7 +78,7 @@
                 <input type="checkbox" class="published" data-id="{{$todo->id}}" @if ($todo->done) checked @endif>
                 <!-- todo text -->
                 <span class="text"> {{ $todo['title'] }} </span>
-                <small class="label label-default pull-right">{{ $todo['progress'] }}</small>
+                <small class="label label-default pull-right">{{ $todo['progress'] }}%</small>
                 <!-- Emphasis label -->
                 <small class="label label-success"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $todo->updated_at)->diffForHumans() }}</small>                
                 <!-- General tools such as edit or delete-->

@@ -113,8 +113,10 @@ body input, body textarea, body select, body table, small {
 /* Dashboard Info-box */
 .info-box .info-box-content .progress .progress-bar { background-color:#ff7b00 }
 
-/* Todo */
-.menu > li > h3 { overflow: hidden; white-space:nowrap; text-overflow: ellipsis; }
+/* Todo - Notification */
+.task-title { overflow: hidden; white-space:nowrap; text-overflow: ellipsis; }
+.task-header { background-color:#999 }
+
 /* Todo List Toggle CSS */
 .todo-list > li.done { color: #999; }
 .todo-list > li.done .text { text-decoration: line-through; font-weight: 500; }

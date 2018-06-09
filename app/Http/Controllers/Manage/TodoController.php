@@ -68,6 +68,7 @@ class TodoController extends Controller
             // 데이터 수정
             $post = Todo::findOrFail($request->input('id'));
             $post->title = $request->input('title');
+            $post->done = ($post->progress != 100) ? : 0;
             $post->progress = ($post->done == 2) ? 100 : $request->input('progress');   
             $post->save();
         } else {
@@ -96,13 +97,13 @@ class TodoController extends Controller
                 <a href="#">
                 <!-- Task title and progress text -->
                 <h3>
-                    '.$todo['title'].'
+                    <p class="task-title">'.$todo['title'].'</p>
                     <small class="pull-right">'.$todo['progress'].'</small>
                 </h3>
                 <!-- The progress bar -->
                 <div class="progress xs">
                     <!-- Change the css width attribute to simulate progress -->
-                    <div class="progress-bar progress-bar-warning" style="width: '.$todo['progress'].'%" role="progressbar"
+                    <div class="progress-bar progress-bar-primary" style="width: '.$todo['progress'].'%" role="progressbar"
                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                     <span class="sr-only">'.$todo['progress'].'% Complete</span>
                     </div>
@@ -118,6 +119,7 @@ class TodoController extends Controller
 
         $post = Todo::findOrFail($request->input('id'));
         $post->done = (!$post->done) ? 1 : 0;
+        $post->progress = ($post->done == 1) ? 100 : $post->progress;
         $post->save();
 
         return response()->json($post);
