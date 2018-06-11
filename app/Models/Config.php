@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Cache;
@@ -14,7 +14,6 @@ class Config extends Model
         'title' => 'required|string|min:1|max:45',
         'description' => 'required|string|min:1|max:100',
         'keywords' => 'required',
-        'agree' => 'required',
     ];
 
     public static $messages = [
@@ -34,7 +33,7 @@ class Config extends Model
         // $admins = User::where('level', 10)->get();
 
         return [
-            'configWebsite' => Cache::get("config.website"),
+            'configWebsite' => cache("config.website"),
             // 'configBoard' => cache("config.board"),
             // 'configJoin' => cache("config.join"),
             // 'configEmailDefault' => cache("config.email.default"),

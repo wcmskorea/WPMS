@@ -12,7 +12,7 @@
       <div class="pull-left info">
         <p>(주)10억홈피</p>
         <!-- Status -->
-        <a href="/"><i class="fa fa-home text-success"></i> 홈페이지 바로가기</a>
+        <a href="/" target="_blank" class="text-muted"><i class="fa fa-home text-success"></i> 홈페이지 열기</a>
       </div>
     </div>
 
@@ -37,7 +37,11 @@
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="{{ route('manage.config') }}"><i class="fa fa-angle-right"></i> 사이트 설정</a></li>
+          <li><a href="{{ route('manage.config.show', 1) }}"><i class="fa fa-angle-right"></i> 사이트 정보</a></li>
+          <li><a href="{{ route('manage.config.show', 2) }}"><i class="fa fa-angle-right"></i> 콘텐츠 정보</a></li>
+          <li><a href="{{ route('manage.config.show', 3) }}"><i class="fa fa-angle-right"></i> 회원 정보</a></li>
+          <li><a href="{{ route('manage.config.show', 4) }}"><i class="fa fa-angle-right"></i> 메일 정보</a></li>
+          <li><a href="{{ route('manage.config.show', 5) }}"><i class="fa fa-angle-right"></i> API 정보</a></li>
         </ul>
       </li>
       <li class="treeview" id="treeProject">

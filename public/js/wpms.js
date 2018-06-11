@@ -39,6 +39,7 @@ $(document).ready(function()
                     } else {
                         toastr.success('성공적으로 저장(id:' + data.id + ') 되었습니다!', '저장완료!', {timeOut: 3000});
                     }
+                    $.playSound('/js/sound/alert.mp3');
                     setTimeout(function() { location.reload(); }, 2000);
                 }
             }
@@ -46,7 +47,7 @@ $(document).ready(function()
     });
     // Todo - Ajax Done
     $('.published').change(function() {
-        $(this).closest('li').toggleClass('danger done');
+        $(this).closest('li').toggleClass('success done');
         $.ajax({
             type: 'POST',
             url: "/manage/todo/changeStatus",
@@ -55,6 +56,7 @@ $(document).ready(function()
             },
             success: function(data) {                
                 toastr.success('성공적으로 저장(id:' + data.id + ') 되었습니다!', '저장완료!', {timeOut: 3000});
+                $.playSound('/js/sound/alert.mp3');
             },
         });
     });
@@ -102,6 +104,24 @@ $(document).ready(function()
                 }
             }
         });
-    }
+    }    
     load_notification();
+
+    // Notification Alarm Sound
+    $.extend({
+        playSound: function () {
+            return $(
+                   '<audio class="sound-player" autoplay="autoplay" style="display:none;">'
+                     + '<source src="' + arguments[0] + '" />'
+                     + '<embed src="' + arguments[0] + '" hidden="true" autostart="true" loop="false"/>'
+                   + '</audio>'
+                 ).appendTo('body');
+        },
+        stopSound: function () {
+            $(".sound-player").remove();
+        }
+    });
+
+    // Tooltip 실행
+    $('[data-toggle="tooltip"]').tooltip();
 });

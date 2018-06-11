@@ -15,9 +15,9 @@
 //     return view('welcome');
 // });
 
-Route::group(['domain' => 'localhost'], function() {
+// Route::group(['domain' => 'localhost', 'domain' => '192.168.0.55'], function() {
 	Route::get('/', function () { return view('welcome'); });
-});
+// });
 
 // 관리자 페이지, Todo
 Route::group(['prefix' => 'manage'], function() {
@@ -26,7 +26,8 @@ Route::group(['prefix' => 'manage'], function() {
 	Route::get('dashboard', ['as' => 'manage.dashboard', 'uses' => 'Manage\ManageController@dashboard']);
 	// Config
 	Route::get('config', ['as' => 'manage.config', 'uses' => 'Manage\ConfigController@index']);
-	Route::put('configs/update', ['as' => 'manage.config.update', 'uses' => 'Manage\ConfigController@update']);
+	Route::get('config/{id?}', ['as' => 'manage.config.show', 'uses' => 'Manage\ConfigController@show']);
+	Route::put('config/update', ['as' => 'manage.config.update', 'uses' => 'Manage\ConfigController@update']);
 	// Todo
 	Route::post('todo/changeStatus', ['as' => 'todo.changeStatus', 'uses' => 'Manage\TodoController@changeStatus']);
 	Route::post('todo/checkNotification', ['as' => 'todo.checkNotification', 'uses' => 'Manage\TodoController@checkNotification']);

@@ -11,39 +11,31 @@ use Response;
 class TodoController extends Controller
 {
 
-    // protected $rules = [
-    //     'title' => 'required',
-    //     'progress' => 'required|numeric|min:1|max:100'
-    // ];
-    // protected $messages = [
-    //     'title.required' => '할일 제목은 필수 입력사항 입니다.',
-    //     'progress.required'  => '진행률은 필수 입력사항 입니다.',
-    //     'progress.numeric'  => '진행률은 숫자만 입력하실 수 있습니다.',
-    //     'progress.min'  => '중요도는 1~100까지 입력하실 수 있습니다.',
-    //     'progress.max'  => '중요도는 1~100까지 입력하실 수 있습니다.',
-    // ];
-    //
     protected $output;
 
     public function index() {
+        
+        $t = New Todo();
+        
         // 진행중인 목록
-        $todos = Todo::where('done', 0)->orderBy('progress', 'desc')->get();
+        $todos = Todo::where('done', 0)->orderBy('created_at', 'desc')->get();
         foreach($todos as $todo) {
-            if($todo['progress'] < 33) {
-                array_add($todo, 'color', 'default');
-            } else if($todo['progress'] < 66){
-                array_add($todo, 'color', 'warning');
-            } else {
-                array_add($todo, 'color', 'danger');
-            }
+            //진행별 badge 색상
+            array_add($todo, 'color', $t->checkColor($todo['progress']));
         }
+
         // 완료된 목록
-        $done = Todo::withTrashed()->orderBy('deleted_at', 'asc')->where('done', '=', 1)->paginate(10);
+        $done = Todo::orderBy('created_at', 'desc')->where('done', '=', 1)->paginate(10);
         foreach($todos as $todo) {
             array_add($todo, 'color', 'success');
         }
         
-        return view('manage.todo.index', ['page_title' => 'ToDo', 'page_description' => '진행해야 할 일들을 관리합니다.', 'todos' => $todos, 'done' => $done]);
+        return view('manage.todo.index', [
+            'page_title' => 'ToDo', 
+            'page_description' => '진행해야 할일들을 관리합니다.', 
+            'todos' => $todos, 
+            'done' => $done
+        ])->with('configWebsite', cache("config.website"));;
     }
 
     public function store(Request $request) {
@@ -68,15 +60,15 @@ class TodoController extends Controller
             // 데이터 수정
             $post = Todo::findOrFail($request->input('id'));
             $post->title = $request->input('title');
-            $post->done = ($post->progress != 100) ? : 0;
-            $post->progress = ($post->done == 2) ? 100 : $request->input('progress');   
+            $post->done = ($post->progress != 100) ? 0 : 1;
+            $post->progress = $request->input('progress');   
             $post->save();
         } else {
             // 데이터 신규저장
             $post = new Todo();
             $post->title = $request->input('title');
             $post->done = 0;
-            $post->progress = ($post->done == 2) ? 100 : $request->input('progress');        
+            $post->progress = $request->input('progress');        
             $post->save();
         }
      
@@ -87,7 +79,7 @@ class TodoController extends Controller
 
     public function checkNotification(Request $request) {
         
-        $output = '';
+        $output = null;
 
         // 진행중인 목록
         $todos = Todo::where('done', 0)->orderBy('progress', 'desc')->get();
@@ -119,7 +111,7 @@ class TodoController extends Controller
 
         $post = Todo::findOrFail($request->input('id'));
         $post->done = (!$post->done) ? 1 : 0;
-        $post->progress = ($post->done == 1) ? 100 : $post->progress;
+        // $post->progress = ($post->done == 1) ? 100 : $post->progress;
         $post->save();
 
         return response()->json($post);
@@ -130,9 +122,5 @@ class TodoController extends Controller
         $post->delete();
 
         return response()->json($post);
-    }
-
-    public function show($id) {
-        //
     }
 }

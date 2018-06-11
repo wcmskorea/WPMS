@@ -14,18 +14,23 @@ class ManageController extends Controller
     }
 
     public function dashboard() {
-        // $todos = Todo::all();
-        // withTrashed(), onlyTrashed() //softdelete된 데이터를 포함할지 여부 함수
-        $todos = Todo::where('done', 0)->orderBy('progress', 'desc')->paginate(5);
-        foreach($todos as $todo) {
-            if($todo['progress'] < 33) {
-                array_add($todo, 'color', 'default');
-            } else if($todo['progress'] < 66){
-                array_add($todo, 'color', 'warning');
-            } else {
-                array_add($todo, 'color', 'danger');
-            }
+        // $todos = Todo::all();        
+        $p = 0;
+        $a = Todo::where('done', 0)->orderBy('created_at', 'desc')->paginate(5); // withTrashed(), onlyTrashed() //softdelete된 데이터를 포함할지 여부 함수
+        $t = New Todo();
+        foreach($a as $b) {
+            //진행별 badge 색상
+            array_add($b, 'color', $t->checkColor($b['progress']));
+            $p += $b['progress'];
         }
-        return view('manage.index', ['page_title' => 'Dashboard', 'page_description' => '기본 정보를 확인 합니다.', 'todos' => $todos]);
+        $p = round($p / sizeof($a), 1);
+
+        return view('manage.index', [
+            'page_title' => 'Dashboard', 
+            'page_description' => '기본 정보 현황', 
+            'todos' => $a,
+            'todos_count' => sizeof($a),
+            'todos_progress' => $p
+        ])->with('configWebsite', cache("config.website"));
     }
 }

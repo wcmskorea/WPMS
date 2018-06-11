@@ -1,17 +1,17 @@
 <div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="info-box bg-default">
-      <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+      <span class="info-box-icon"><i class="fa fa-flag-o"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">ToDo</span>
-        <span class="info-box-number">12건 / 1,020건</span>
+        <span class="info-box-number text-red">{{ $todos_count }} 건</span>
 
         <div class="progress">
-          <div class="progress-bar" style="width: 70%"></div>
+          <div class="progress-bar" style="width: {{ $todos_progress }}%"></div>
         </div>
             <span class="progress-description">
-              70% Increase in 30 Days
+            평균 진행률 : {{ $todos_progress }}%
             </span>
       </div>
       <!-- /.info-box-content -->
@@ -44,7 +44,7 @@
       <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">Events</span>
+        <span class="info-box-text">Schedule</span>
         <span class="info-box-number">41,410</span>
 
         <div class="progress">
@@ -64,7 +64,7 @@
       <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">Comments</span>
+        <span class="info-box-text">Visitors</span>
         <span class="info-box-number">41,410</span>
 
         <div class="progress">
