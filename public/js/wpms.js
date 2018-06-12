@@ -47,7 +47,7 @@ $(document).ready(function()
     });
     // Todo - Ajax Done
     $('.published').change(function() {
-        $(this).closest('li').toggleClass('success done');
+        $(this).closest('td').toggleClass('success done');
         $.ajax({
             type: 'POST',
             url: "/manage/todo/changeStatus",
@@ -57,6 +57,7 @@ $(document).ready(function()
             success: function(data) {                
                 toastr.success('성공적으로 저장(id:' + data.id + ') 되었습니다!', '저장완료!', {timeOut: 3000});
                 $.playSound('/js/sound/alert.mp3');
+                setTimeout(function() { location.reload(); }, 2000);
             },
         });
     });

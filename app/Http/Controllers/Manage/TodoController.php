@@ -15,26 +15,26 @@ class TodoController extends Controller
 
     public function index() {
         
-        $t = New Todo();
+        $todos = New Todo();
         
         // 진행중인 목록
-        $todos = Todo::where('done', 0)->orderBy('created_at', 'desc')->get();
-        foreach($todos as $todo) {
+        $datas = Todo::where('done', 0)->orderBy('created_at', 'desc')->get();
+        foreach($datas as $data) {
             //진행별 badge 색상
-            array_add($todo, 'color', $t->checkColor($todo['progress']));
+            array_add($data, 'color', $todos->checkColor($data['progress']));
         }
 
         // 완료된 목록
-        $done = Todo::orderBy('created_at', 'desc')->where('done', '=', 1)->paginate(10);
-        foreach($todos as $todo) {
-            array_add($todo, 'color', 'success');
+        $dones = Todo::orderBy('created_at', 'desc')->where('done', '=', 1)->paginate(10);
+        foreach($dones as $done) {
+            array_add($done, 'color', $todos->checkColor($done['progress']));
         }
         
         return view('manage.todo.index', [
             'page_title' => 'ToDo', 
             'page_description' => '진행해야 할일들을 관리합니다.', 
-            'todos' => $todos, 
-            'done' => $done
+            'todos' => $datas, 
+            'done' => $dones
         ])->with('configWebsite', cache("config.website"));;
     }
 

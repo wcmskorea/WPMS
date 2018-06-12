@@ -1,7 +1,7 @@
 <div class="box-header with-border">
   <h3 class="box-title"><i class="fa fa-tasks"></i> ToDo</h3>
-  <div class="box-tools pull-right">
-    <span data-toggle="tooltip" title="{{ $todos->total() }}건 진행중" class="badge bg-light-blue">{{ $todos->total() }}</span>
+  <div class="box-tools pull-right" data-toggle="tooltip" data-placement="left" title="{{ $todos->total() }}건 진행중">
+    <span class="badge bg-light-blue">{{ $todos->total() }}</span>
     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
   </div>
 </div>

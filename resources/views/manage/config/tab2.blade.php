@@ -29,7 +29,7 @@
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li><a href="{{ route('manage.config.show', 1) }}">1. 사이트 정보</a></li>
-                <li class="active"><a href="{{ route('manage.config.show', 2) }}"><strong class="text-red">2. 콘텐츠 정보</strong></a></li>
+                <li class="active"><a href="{{ route('manage.config.show', 2) }}"><strong class="text-red">2. 테마 정보</strong></a></li>
                 <li><a href="{{ route('manage.config.show', 3) }}">3. 회원 정보</a></li>
                 <li><a href="{{ route('manage.config.show', 4) }}">4. 메일 정보</a></li>
                 <li><a href="{{ route('manage.config.show', 5) }}">5. API 정보</a></li>
