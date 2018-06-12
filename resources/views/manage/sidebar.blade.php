@@ -38,10 +38,11 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="{{ route('manage.config.show', 1) }}"><i class="fa fa-angle-right"></i> 사이트 정보</a></li>
-          <li><a href="{{ route('manage.config.show', 2) }}"><i class="fa fa-angle-right"></i> 콘텐츠 정보</a></li>
+          <li><a href="{{ route('manage.config.show', 2) }}"><i class="fa fa-angle-right"></i> 운영 정보</a></li>
           <li><a href="{{ route('manage.config.show', 3) }}"><i class="fa fa-angle-right"></i> 회원 정보</a></li>
           <li><a href="{{ route('manage.config.show', 4) }}"><i class="fa fa-angle-right"></i> 메일 정보</a></li>
-          <li><a href="{{ route('manage.config.show', 5) }}"><i class="fa fa-angle-right"></i> API 정보</a></li>
+          <li><a href="{{ route('manage.config.show', 5) }}"><i class="fa fa-angle-right"></i> 테마 정보</a></li>
+          <li><a href="{{ route('manage.config.show', 6) }}"><i class="fa fa-angle-right"></i> API 정보</a></li>
         </ul>
       </li>
       <li class="treeview" id="treeProject">

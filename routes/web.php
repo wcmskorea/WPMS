@@ -11,10 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 // Route::group(['domain' => 'localhost', 'domain' => '192.168.0.55'], function() {
 	Route::get('/', function () { return view('welcome'); });
 // });

@@ -46,7 +46,7 @@ class InstallController extends Controller
         return view('install.form');
     }
 
-    public function setup(InstallRequest $request)
+    public function setup(Request $request)
     {
         // 1. .env파일에 App 정보, DB 정보를 셋팅한다.
         $this->setEnv($request);
@@ -60,17 +60,17 @@ class InstallController extends Controller
                 File::delete($envPath);
             }
 
-            return view('install.setup_result', ['dbError' => 1, 'message' => $e->getMessage()]);
+            return view('install.result', ['dbError' => 1, 'message' => $e->getMessage()]);
         }
         // 3. App Key 생성
         Artisan::call('key:generate');
         // 4. 파일 쓰기를 위한 폴더 public/storage로 링크 걸기
         Artisan::call('storage:link');
         // 5. 본인확인을 위한 key 폴더 생성
-        $okeyPath = storage_path('okname/key');
-        if(!File::exists($okeyPath)) {
-            File::makeDirectory($okeyPath);
-        }
+        // $okeyPath = storage_path('okname\key');
+        // if(!File::exists($okeyPath)) {
+        //     File::makeDirectory($okeyPath);
+        // }
         // 6. DB 구성
         Artisan::call('migrate:refresh');
         // 7. 입력받은 관리자 데이터로 관리자 회원 추가
@@ -80,30 +80,31 @@ class InstallController extends Controller
         // 9. 모든 설정 캐시를 초기화.
         Artisan::call('config:clear');
 
-        return view('install.setup_result');
+        return view('install.result');
     }
 
     // .env 와 config/database 설정
     private function setEnv($request)
     {
-        Artisan::call('env:set', ['key' => 'APP_ENV', 'value' => 'local']);
-        Artisan::call('env:set', ['key' => 'APP_KEY', 'value' => '']);
-        Artisan::call('env:set', ['key' => 'APP_DEBUG', 'value' => 'false']);
-        Artisan::call('env:set', ['key' => 'APP_LOG', 'value' => 'daily']);
-        Artisan::call('env:set', ['key' => 'APP_LOG_LEVEL', 'value' => 'debug']);
-        Artisan::call('env:set', ['key' => 'APP_URL', 'value' => $request->appUrl]);
-        Artisan::call('env:set', ['key' => 'DB_CONNECTION', 'value' => 'mysql']);
-        Artisan::call('env:set', ['key' => 'DB_HOST', 'value' => $request->mysqlHost]);
-        Artisan::call('env:set', ['key' => 'DB_PORT', 'value' => $request->mysqlPort]);
-        Artisan::call('env:set', ['key' => 'DB_DATABASE', 'value' => $request->mysqlDb]);
-        Artisan::call('env:set', ['key' => 'DB_USERNAME', 'value' => $request->mysqlUser]);
-        Artisan::call('env:set', ['key' => 'DB_PASSWORD', 'value' => $request->mysqlPass]);
-        Artisan::call('env:set', ['key' => 'DB_PREFIX', 'value' => $request->tablePrefix]);
-        Artisan::call('env:set', ['key' => 'BROADCAST_DRIVER', 'value' => 'log']);
-        Artisan::call('env:set', ['key' => 'CACHE_DRIVER', 'value' => 'file']);
-        Artisan::call('env:set', ['key' => 'SESSION_DRIVER', 'value' => 'file']);
-        Artisan::call('env:set', ['key' => 'QUEUE_DRIVER', 'value' => 'sync']);
-        Artisan::call('env:set', ['key' => 'MAIL_DRIVER', 'value' => 'mail']);
+        // Artisan::call('env:set', ['key' => 'APP_ENV', 'value' => 'local']);
+        // Artisan::call('env:set', ['key' => 'APP_KEY', 'value' => '']);
+        // Artisan::call('env:set', ['key' => 'APP_DEBUG', 'value' => 'false']);
+        // Artisan::call('env:set', ['key' => 'APP_LOG', 'value' => 'daily']);
+        // Artisan::call('env:set', ['key' => 'APP_LOG_LEVEL', 'value' => 'debug']);
+        // Artisan::call('env:set', ['key' => 'APP_URL', 'value' => $request->appUrl]);
+        // Artisan::call('env:set', ['key' => 'DB_CONNECTION', 'value' => 'mysql']);
+        // Artisan::call('env:set', ['key' => 'DB_HOST', 'value' => $request->mysqlHost]);
+        // Artisan::call('env:set', ['key' => 'DB_PORT', 'value' => $request->mysqlPort]);
+        // Artisan::call('env:set', ['key' => 'DB_DATABASE', 'value' => $request->mysqlDb]);
+        // Artisan::call('env:set', ['key' => 'DB_USERNAME', 'value' => $request->mysqlUser]);
+        // Artisan::call('env:set', ['key' => 'DB_PASSWORD', 'value' => $request->mysqlPass]);
+        // Artisan::call('env:set', ['key' => 'DB_PREFIX', 'value' => $request->tablePrefix]);
+        // Artisan::call('env:set', ['key' => 'BROADCAST_DRIVER', 'value' => 'log']);
+        // Artisan::call('env:set', ['key' => 'CACHE_DRIVER', 'value' => 'file']);
+        // Artisan::call('env:set', ['key' => 'SESSION_DRIVER', 'value' => 'file']);
+        // Artisan::call('env:set', ['key' => 'QUEUE_DRIVER', 'value' => 'sync']);
+        // Artisan::call('env:set', ['key' => 'MAIL_DRIVER', 'value' => 'mail']);
+        $this->setEnvironmentValue('APP_ENV', 'local');
 
         config(['app.env' => 'local']);
         config(['app.debug' => 'true']);
@@ -118,14 +119,28 @@ class InstallController extends Controller
         config(['database.connections.mysql.prefix' => $request->tablePrefix]);
     }
 
+    public function setEnvironmentValue($envKey, $envValue)
+    {
+        $envFile = app()->environmentFilePath();
+        $str = file_get_contents($envFile);
+
+        $oldValue = strtok($str, "{$envKey}=");
+
+        $str = str_replace("{$envKey}={$oldValue}", "{$envKey}={$envValue}\n", $str);
+
+        $fp = fopen($envFile, 'w');
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+
     // 관리자 정보 회원 등록
     private function addAdmin($request)
     {
         $nowDate = Carbon::now()->toDateString();
 
         $admin = [
-            'name' => $request->adminNick,
-            'nick' => $request->adminNick,
+            'name' => $request->adminName,
+            'nick' => $request->adminName,
             'nick_date' => $nowDate,
             'email' => $request->adminEmail,
             'password' => bcrypt($request->adminPass),
@@ -152,10 +167,10 @@ class InstallController extends Controller
     {
 
         $configNames = [
-            'homepage', 'board', 'join', 'email.default', 'email.board', 'email.join', 'theme', 'skin', 'sns', 'extra'
+            'website', 'policy', 'user', 'mail', 'theme', 'api'
         ];
 
-        config(['laon.superAdmin' => $request->adminEmail]);
+        config(['wpms.admin' => $request->adminEmail]);
 
         // 설정 캐시 등록
         foreach($configNames as $configName) {

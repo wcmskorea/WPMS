@@ -1,8 +1,7 @@
-@extends('layouts.manage')
+@extends('layouts.install')
 
 @section('title')OOPS! {{ config('app.name') }} 라이센스 확인@endsection
 
-@section('add_css')<link rel="stylesheet" href="/bower/admin-lte/plugins/iCheck/square/red.css">@endsection
 @section('body_class'){{ "hold-transition register-page" }}@endsection
 
 @section('content')
@@ -12,7 +11,7 @@
     </div>
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab_1"><strong class="text-light-blue">1. 라이센스</strong></a></li>
+            <li class="active"><a href="#tab_1"><strong class="text-red">1. 라이센스</strong></a></li>
             <li><a href="#tab_2">2. 초기설정</a></li>
             <li><a href="#tab_3">3. 설치완료</a></li>
         </ul>
@@ -28,8 +27,8 @@
             </div>
         </div><!-- /.tab-content -->
         <div class="register-box-body">
-            <p class="login-box-msg"><label><input type="checkbox" name="agree" value="yes"> 동의 합니다.</label></p>
-            <button type="submit" class="btn btn-primary btn-block btn-flat">다음단계</a>
+            <p class="login-box-msg"><label><input type="checkbox" name="agree" id="checkAgree" class="flat-red" value="yes"> 동의 합니다.</label></p>
+            <button type="submit" class="btn btn-danger btn-block btn-flat">다음단계</a>
         </div>
         </form>
     </div><!-- /.nav-tabs-custom -->
@@ -38,15 +37,15 @@
 @endsection
 
 @section('add_js')
-    <script src="/bower/admin-lte/plugins/iCheck/icheck.min.js"></script>
-    <script>
+<script>
+
     $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' /* optional */
+        $('input[type="checkbox"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_flat-red',
+            radioClass   : 'iradio_flat-red'
         });
     });
+
     function checkSubmit(f)
     {
         if (!f.agree.checked) {
@@ -55,5 +54,6 @@
         }
         return true;
     }
-    </script>
+
+</script>
 @endsection

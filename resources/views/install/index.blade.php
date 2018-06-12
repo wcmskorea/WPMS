@@ -1,4 +1,4 @@
-@extends('layouts.manage')
+@extends('layouts.install')
 
 @section('title')OOPS! {{ config('app.name') }} 설치하기@endsection
 
@@ -12,7 +12,7 @@
   <div class="register-box-body">
     <p class="login-box-msg"><strong>{{ config('app.name') }}</strong>를 먼저 설치해주십시오.</p>
     <p class="login-box-msg"><strong>{{ config('app.name') }}</strong>가 현재 정상적으로 설치되지 않았습니다.</p>
-    <a href="{{ route('install.license') }}" class="btn btn-primary btn-block btn-flat">지금 설치하기</a>
+    <a href="{{ route('install.license') }}" class="btn btn-danger btn-block btn-flat">지금 설치하기</a>
   </div>
 </div>
 <!-- /.register-box -->

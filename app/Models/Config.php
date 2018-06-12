@@ -37,6 +37,137 @@ class Config extends Model
         ];
     }
 
+    public function createConfigController($configName)
+    {
+        switch ($configName) {
+            case 'website':
+                return $this->createConfigWebsite();
+            case 'policy':
+                return $this->createConfigPolicy();
+            case 'user':
+                return $this->createConfigUser();
+            case 'mail':
+                return $this->createConfigMail();
+            case 'them':
+                return $this->createConfigTheme();
+            case 'api':
+                return $this->createConfigApi();
+            default:
+                # code...
+                break;
+        }
+    }
+
+    // 사이트 설정을 config 테이블에 추가한다.
+    public function createConfigWebsite()
+    {
+        $configData = array (
+            'admin' => config('wpms.admin'),
+            'title' => config('wpms.title'),
+            'description' => config('wpms.description'),
+            'keywords' => config('wpms.keywords'),
+            'filterwords' => config('wpms.filterwords'),
+            'ipallow' => config('wpms.ipallow'),
+            'ipdeny' => config('wpms.ipdeny'),
+            'metatag' => config('wpms.metatag'),
+            'script' => config('wpms.script'),
+            'css' => config('wpms.css'),
+            'fileallow' => config('wpms.fileallow'),
+        );
+        return $this->createConfig('config.website', $configData);
+    }
+
+    // 운영 설정 가져오기
+    public function createConfigPolicy()
+    {
+        $configData = array (
+            'pointUse' => config('wpms.pointUse'),
+            'potinLogin' => config('wpms.potinLogin'),
+            'pointRegist' => config('wpms.pointRegist'),
+            'pointSendMemo' => config('wpms.pointSendMemo'),
+            'pointTerm' => config('wpms.pointTerm'),
+            'pointRread' => config('wpms.pointRread'),
+            'pointWrite' => config('wpms.pointWrite'),
+            'pointComment' => config('wpms.pointComment'),
+            'pointDownload' => config('wpms.pointDownload'),
+            'pointFirstBuy' => config('wpms.pointFirstBuy'),
+            'pointBirth' => config('wpms.pointBirth'),
+            'pointRenewal' => config('wpms.pointRenewal'),
+            'pointRecommend' => config('wpms.pointRecommend'),
+        );
+        return $this->createConfig('config.policy', $configData);
+    }
+
+    // 사용자 설정 가져오기
+    public function createConfigUser()
+    {
+        $configData = array (
+            'useSns' => config('wpms.useSns'),
+            'useName' => config('wpms.useName'),
+            'useWebsite' => config('wpms.useWebsite'),
+            'useTel' => config('wpms.useTel'),
+            'useMobile' => config('wpms.useMobile'),
+            'useAddress' => config('wpms.useAddress'),
+            'useSignature' => config('wpms.useSignature'),
+            'useCertEamil' => config('wpms.useCertEamil'),
+            'useProfile' => config('wpms.useProfile'),
+            'defaultLevel' => config('wpms.defaultLevel'),
+            'expireNick' => config('wpms.expireNick'),
+            'expireDate' => config('wpms.expireDate'),
+            'useFilter' => config('wpms.useFilter'),
+            'useStipulation' => config('wpms.useStipulation'),
+            'usePrivacy' => config('wpms.usePrivacy'),
+            'passwordPolicyDigits' => config('wpms.passwordPolicyDigits'),
+            'passwordPolicySpecial' => config('wpms.passwordPolicySpecial'),
+            'passwordPolicyUpper' => config('wpms.passwordPolicyUpper'),
+            'passwordPolicyNumber' => config('wpms.passwordPolicyNumber'),
+        );
+        return $this->createConfig('config.user', $configData);
+    }
+
+    // 메일 설정 가져오기
+    public function createConfigMail()
+    {
+        $configData = array (
+            'emailUse' => config('wpms.emailUse'),
+            'emailMaster' => config('wpms.emailMaster'),
+            'emailMasterName' => config('wpms.emailMasterName'),
+            'emailSendMaster' => config('wpms.emailSendMaster'),
+            'emailSendWriter' => config('wpms.emailSendWriter'),
+            'emailSendRegister' => config('wpms.emailSendRegister'),
+        );
+        return $this->createConfig('config.mail', $configData);
+    }
+
+    // 메일 설정 가져오기
+    public function createConfigTheme()
+    {
+        $configData = array (
+            'theme' => config('wpms.theme'),
+        );
+        return $this->createConfig('config.theme', $configData);
+    }
+
+    // API 설정 가져오기
+    public function createConfigApi()
+    {
+        $configData = array (
+            'kakaoKey' => null,
+            'kakaoSecret' => null,
+            'kakaoRedirect' => null,
+            'naverKey' => null,
+            'naverSecret' => null,
+            'naverRedirect' => null,
+            'facebookKey' => null,
+            'facebookSecret' => null,
+            'facebookRedirect' => null,
+            'googleKey' => null,
+            'googleSecret' => null,
+            'googleRedirect' => null,
+        );
+        return $this->createConfig('config.api', $configData);
+    }
+
     // 설정을 변경한다.
     public function updateConfig($data, $name='', $theme=0)
     {
@@ -57,7 +188,7 @@ class Config extends Model
             'metatag' => ($data['metatag']) ? : '',
             'script' => ($data['script']) ? : '',
             'css' => ($data['css']) ? : '',            
-            'fileallow' => ($data['fileallow']) ? : 'gif|jpg|jpeg|png|swf|asx|asf|wmv|wma|mpg|mpeg|mov|avi|mp3|hwp|doc|docx|xls|xlsx|ppt|pptx|zip',
+            'fileallow' => ($data['fileallow']) ? : cache('config.website')->fileallow,
         ];
 
         // 설정이 변경될 때 캐시를 지운다.
@@ -100,22 +231,9 @@ class Config extends Model
         return $config;
     }
 
-    // 회원 가입 설정을 config 테이블에 추가한다.
-    public function createConfigWebsite()
-    {
-        $configData = array (
-            'title' => '',
-            'description' => '',
-            'keywords' => '',
-            'filterwords' => '18아,18놈,18새끼,18뇬,18노,18것,18넘,개년,개놈,개뇬,개새,개색끼,개세끼,개세이,개쉐이,개쉑,개쉽,개시키,개자식,개좆,게색기,게색끼,광뇬,뇬,눈깔,뉘미럴,니귀미,니기미,니미,도촬,되질래,뒈져라,뒈진다,디져라,디진다,디질래,병쉰,병신,뻐큐,뻑큐,뽁큐,삐리넷,새꺄,쉬발,쉬밸,쉬팔,쉽알,스패킹,스팽,시벌,시부랄,시부럴,시부리,시불,시브랄,시팍,시팔,시펄,실밸,십8,십쌔,십창,싶알,쌉년,썅놈,쌔끼,쌩쑈,썅,써벌,썩을년,쎄꺄,쎄엑,쓰바,쓰발,쓰벌,쓰팔,씨8,씨댕,씨바,씨발,씨뱅,씨봉알,씨부랄,씨부럴,씨부렁,씨부리,씨불,씨브랄,씨빠,씨빨,씨뽀랄,씨팍,씨팔,씨펄,씹,아가리,아갈이,엄창,접년,잡놈,재랄,저주글,조까,조빠,조쟁이,조지냐,조진다,조질래,존나,존니,좀물,좁년,좃,좆,좇,쥐랄,쥐롤,쥬디,지랄,지럴,지롤,지미랄,쫍빱,凸,퍽큐,뻑큐,빠큐,ㅅㅂㄹㅁ',
-            'ipallow' => '',
-            'ipdeny' => '',
-            'metatag' => '',
-            'script' => '',
-            'css' => '',
-            'fileallow' => 'gif|jpg|jpeg|png|swf|asx|asf|wmv|wma|mpg|mpeg|mov|avi|mp3|hwp|doc|docx|xls|xlsx|ppt|pptx|zip',
-        );
-
-        return $this->createConfig('config.website', $configData);
+    // json형태로 저장된 설정을 배열형태로 변환하는 메소드
+    public function pullConfig($config) {
+        // dd($config['vars']);
+        return json_decode($config['vars']);
     }
 }

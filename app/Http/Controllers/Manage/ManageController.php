@@ -23,7 +23,7 @@ class ManageController extends Controller
             array_add($data, 'color', $todos->checkColor($data['progress']));
             $progress += $data['progress'];
         }
-        $progress = round($progress / sizeof($datas), 1);
+        $progress = ($progress) ? round($progress / sizeof($datas), 1) : 0;
 
         return view('manage.index', [
             'page_title' => 'Dashboard', 

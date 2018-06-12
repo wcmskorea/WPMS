@@ -45,7 +45,7 @@ class Kernel extends HttpKernel
         ],
 
         'install' => [
-            \App\Http\Middleware\CheckInstallAlready::class,
+            // \App\Http\Middleware\CheckInstallAlready::class,
             \App\Http\Middleware\CheckAccessFolder::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
