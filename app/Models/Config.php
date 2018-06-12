@@ -34,6 +34,11 @@ class Config extends Model
 
         return [
             'configWebsite' => cache("config.website"),
+            'configPolicy' => cache("config.policy"),
+            'configUser' => cache("config.user"),
+            'configMail' => cache("config.mail"),
+            'configTheme' => cache("config.theme"),
+            'configApi' => cache("config.api"),
         ];
     }
 
@@ -48,7 +53,7 @@ class Config extends Model
                 return $this->createConfigUser();
             case 'mail':
                 return $this->createConfigMail();
-            case 'them':
+            case 'theme':
                 return $this->createConfigTheme();
             case 'api':
                 return $this->createConfigApi();
@@ -82,7 +87,7 @@ class Config extends Model
     {
         $configData = array (
             'pointUse' => config('wpms.pointUse'),
-            'potinLogin' => config('wpms.potinLogin'),
+            'pointLogin' => config('wpms.pointLogin'),
             'pointRegist' => config('wpms.pointRegist'),
             'pointSendMemo' => config('wpms.pointSendMemo'),
             'pointTerm' => config('wpms.pointTerm'),
@@ -168,6 +173,16 @@ class Config extends Model
         return $this->createConfig('config.api', $configData);
     }
 
+    // configs 테이블에 해당 row를 추가한다.
+    public function createConfig($name, $configData)
+    {
+        $config = new Config();
+        $config->name = $name;
+        $config->vars = json_encode($configData);
+        $config->save();
+        return $config;
+    }
+
     // 설정을 변경한다.
     public function updateConfig($data, $name='', $theme=0)
     {
@@ -176,20 +191,22 @@ class Config extends Model
         if($name) {
             Cache::forget("config.$name");
             return $this->updateConfigByOne($name, $data);
-        }        
+        }
 
         $configData = [
             'title' => ($data['title']) ? : cache('config.website')->title,
             'description' => ($data['description']) ? : cache('config.website')->description,
             'keywords' => ($data['keywords']) ? : cache('config.website')->keywords,
-            'filterwords' => ($data['filterwords']) ? : cache('config.website')->filterwords,
-            'ipallow' => ($data['ipallow']) ? : cache('config.website')->ipallow,
-            'ipdeny' => ($data['ipdeny']) ? : cache('config.website')->ipdeny,
+            'filterwords' => ($data['filterwords']) ? [ 0 => $data['filterwords'] ] : cache('config.website')->filterwords,
+            'ipallow' => ($data['ipallow']) ? [ 0 => $data['ipallow'] ] : cache('config.website')->ipallow,
+            'ipdeny' => ($data['ipdeny']) ? [ 0 => $data['ipdeny'] ] : cache('config.website')->ipdeny,
             'metatag' => ($data['metatag']) ? : '',
             'script' => ($data['script']) ? : '',
             'css' => ($data['css']) ? : '',            
             'fileallow' => ($data['fileallow']) ? : cache('config.website')->fileallow,
         ];
+
+        // dd($configData);
 
         // 설정이 변경될 때 캐시를 지운다.
         Cache::forget("config.website");
@@ -202,38 +219,23 @@ class Config extends Model
         $config = Config::where('name', 'config.'. $name)->first();
 
         // json 타입을 배열로 변경.
-        $originalData = (!$config) ? array() : json_decode($config['vars'], true);
+        $originalData = json_decode($config->vars, true);
 
         // 업데이트할 설정값을 원래 설정 값에 덮어 씌운다.
         foreach($data as $key => $value) {
             $originalData[$key] = $data[$key];
         }
-        
-        if(!$config) {
-            $config = new Config();
-            $config->name = 'config.'. $name;
-        }
-
-        Cache::forever("config.". $name, $originalData);
 
         $config->vars = json_encode($originalData);
+
+        // 변경된 설정을 decode해서 캐시에 등록한다.
+        Cache::forever("config.$name", json_decode($config->vars));
         
         return $config->save();
     }
 
-    // configs 테이블에 해당 row를 추가한다.
-    public function createConfig($name, $configData)
-    {
-        $config = new Config();
-        $config->name = $name;
-        $config->vars = json_encode($configData);
-        $config->save();
-        return $config;
-    }
-
     // json형태로 저장된 설정을 배열형태로 변환하는 메소드
     public function pullConfig($config) {
-        // dd($config['vars']);
         return json_decode($config['vars']);
     }
 }

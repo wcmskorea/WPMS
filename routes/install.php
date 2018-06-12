@@ -1,6 +1,7 @@
 <?php
 
 // 설치 페이지
+Route::get('/install', ['as' => 'install.index', 'uses' => 'InstallController@index']);
 Route::get('/install/index', ['as' => 'install.index', 'uses' => 'InstallController@index']);
 // 라이센스 확인
 Route::get('/install/license', ['as' => 'install.license', 'uses' => 'InstallController@license']);

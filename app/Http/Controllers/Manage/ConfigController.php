@@ -46,6 +46,8 @@ class ConfigController extends Controller
      
         $params = $this->configModel->getConfigIndexParams();
 
+        // dd($params);
+
         return view("manage.config.tab" . $id, [
             'page_title' => 'Config', 
             'page_description' => '사이트 환경설정 페이지입니다.'

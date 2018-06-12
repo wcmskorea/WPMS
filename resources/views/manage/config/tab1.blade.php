@@ -45,6 +45,13 @@
                     <input type="hidden" name="id" value="1">
                     <div class="box-body">
                         <div class="form-group">
+                            <label for="inputAdmin" class="col-sm-2 control-label">웹사이트 관리자</label>
+                            <div class="col-sm-10">
+                                <input name="admin" type="text" class="form-control" id="inputAdmin" value="{{ $configWebsite->admin }}" placeholder="Input ...">
+                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 시스템 최고 관리자 계정입니다.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="inputTitle" class="col-sm-2 control-label">웹사이트 제　목</label>
                             <div class="col-sm-10">
                                 <input name="title" type="text" class="form-control" id="inputTitle" value="{{ $configWebsite->title }}" placeholder="Input ...">
@@ -66,49 +73,49 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="textMeta" class="col-sm-2 control-label">추가 메타태그</label>
+                            <label for="textMeta" class="col-sm-2 control-label">메타태그</label>
                             <div class="col-sm-10">
-                                <textarea name="metatag" id="textMeta" class="form-control" rows="3" placeholder="Enter ...">{{ $configWebsite->metatag }}</textarea>
+                                <textarea name="metatag" id="textMeta" class="form-control" rows="5" placeholder="Enter ...">{{ $configWebsite->metatag }}</textarea>
                                 <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 사이트 인증이나, 기타 정보를 위한 메타 태그를 입력합니다.</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="textScript" class="col-sm-2 control-label">추가 스크립트</label>
+                            <label for="textScript" class="col-sm-2 control-label">스크립트</label>
                             <div class="col-sm-10">
                                 <textarea name="script" id="textScript" class="form-control" rows="5" placeholder="Enter ...">{{ $configWebsite->script }}</textarea>
                                 <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 구글이나 네이버의 Analytics와 같은 분석 스크립트를 삽입합니다.</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="textScript" class="col-sm-2 control-label">추가 CSS</label>
+                            <label for="textScript" class="col-sm-2 control-label">CSS</label>
                             <div class="col-sm-10">
                                 <textarea name="css" id="textCss" class="form-control" rows="5" placeholder="Enter ...">{{ $configWebsite->css }}</textarea>
                                 <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 별도 디자인 적용을 위한 추가 Stylesheet 정보를 삽입합니다.</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="textFilter" class="col-sm-2 control-label">금지단어 필터링</label>
+                            <label for="textFilter" class="col-sm-2 control-label">단어 필터링</label>
                             <div class="col-sm-10">
                                 <textarea name="filterwords" id="textFilter" class="form-control" rows="5" placeholder="Enter ...">{{ $configWebsite->filterwords[0] }}</textarea>
                                 <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 사이트내 불법광고 및 스팸, 비방성 글을 제한하기 위한 단어를 입력하세요. (',' 콤마 구분 입력)</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="textAllow" class="col-sm-2 control-label">접근허용 아이피</label>
+                            <label for="textAllow" class="col-sm-2 control-label">허용 아이피</label>
                             <div class="col-sm-10">
                                 <textarea name="ipallow" id="textAllow" class="form-control" rows="3" placeholder="ex) 127.0.0,1111.222.333.444,000.000.000.000">{{ $configWebsite->ipallow[0] }}</textarea>
                                 <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 접근허용 아이피는 관리자 페이지 접근에 한하여 제한됩니다. (',' 콤마 구분 입력)</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="textDeny" class="col-sm-2 control-label">접근차단 아이피</label>
+                            <label for="textDeny" class="col-sm-2 control-label">차단 아이피</label>
                             <div class="col-sm-10">
                                 <textarea name="ipdeny" id="textDeny" class="form-control" rows="3" placeholder="ex)  127.0.0,1111.222.333.444,000.000.000.000">{{ $configWebsite->ipdeny[0] }}</textarea>
                                 <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 접근차단 아이피는 관리자 페이지 및 사용자 페이지까지 접근 제한됩니다. (',' 콤마 구분 입력)</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputFileAllow" class="col-sm-2 control-label">파일등록 확장자</label>
+                            <label for="inputFileAllow" class="col-sm-2 control-label">파일 확장자</label>
                             <div class="col-sm-10">
                                 <input name="fileallow" type="text" class="form-control" id="inputFileAllow" value="{{ $configWebsite->fileallow }}" placeholder="Input ...">
                                 <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 사이트내 등록 가능한 파일의 유형을 입력합니다. ('|' 구분 입력)</p>

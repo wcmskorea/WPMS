@@ -64,7 +64,7 @@
             </table>
           </div><!-- /.box-body-->
           <div class="box-footer clearfix no-border">
-            <button type="button" class="btn btn-danger pull-right" id="addNewTodo" data-toggle="modal" data-target="#modal-todo"><i class="fa fa-plus"></i>&nbsp;&nbsp;할일 추가하기</button>
+            <button type="button" class="btn btn-primary pull-right" id="addNewTodo" data-toggle="modal" data-target="#modal-todo" title="Alt + N" accesskey="n"><i class="fa fa-plus"></i>&nbsp;&nbsp;할일 추가하기</button>
           </div>
         </div><!-- /.box -->
       </div><!-- /.col -->

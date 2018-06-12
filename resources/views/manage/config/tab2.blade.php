@@ -43,8 +43,28 @@
                     {{ csrf_field() }}
                     <input type="hidden" name="id" value="2">
                     <div class="box-body">
-                        
-                        <!-- <div class="form-group">
+                        <div class="form-group">
+                            <label for="checkPoint" class="col-sm-2 control-label">포인트 적용</label>
+                            <div class="col-sm-10">
+                                <label><input type="checkbox" class="flat-red" name="pointuse" value="yes">&nbsp;&nbsp;적용</label>
+                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 포인트 제도 사용여부</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pointLogin" class="col-sm-2 control-label">로그인시 포인트</label>
+                            <div class="col-sm-10">
+                                <input name="pointlogin" type="text" class="form-control" id="pointLogin" value="{{ $configPolicy->pointLogin }}" placeholder="Input ...">
+                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 사용자 로그인시 1일 1회 적립 포인트</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pointRegist" class="col-sm-2 control-label">회원등록 포인트</label>
+                            <div class="col-sm-10">
+                                <input name="pointregist" type="text" class="form-control" id="pointRegist" value="{{ $configPolicy->pointRegist }}" placeholder="Input ...">
+                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 사용자 로그인시 1일 1회 적립 포인트</p>
+                            </div>
+                        </div>
+                    <!-- <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <label><input type="checkbox" class="flat-red" name="agree" value="yes">&nbsp;&nbsp;데이터를 관리하는 관리자로써 정보보호 서약에 동의합니다.</label>
                             </div>

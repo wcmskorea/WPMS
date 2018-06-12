@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -29,12 +29,14 @@ class Todo extends Model
     ];
 
     public function checkColor($progress) {
-        if($progress < 33) {
-            return 'primary';
-        } else if($progress < 66){
-            return 'warning';
-        } else {
+        if($progress < 25) {
             return 'danger';
+        } else if($progress < 50){
+            return 'warning';
+        } else if($progress < 75){
+            return 'primary';
+        } else {
+            return 'success';
         }
     }
 }

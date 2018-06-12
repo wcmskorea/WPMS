@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Manage;
 
 use App\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Todo;
+use App\Models\Todo;
 
 class ManageController extends Controller
 {

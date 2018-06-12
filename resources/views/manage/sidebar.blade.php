@@ -10,9 +10,9 @@
         <img src="/bower/admin-lte/dist/img/user2-160x160.jpg" class="img-rounded" alt="User Image">
       </div>
       <div class="pull-left info">
-        <p>(주)10억홈피</p>
+        <p>{{ $configWebsite->title }}</p>
         <!-- Status -->
-        <a href="/" target="_blank" class="text-muted"><i class="fa fa-home text-success"></i> 홈페이지 열기</a>
+        <a href="/" target="_blank" class="text-muted"><i class="fa fa-home text-success"></i> go home</a>
       </div>
     </div>
 
