@@ -28,12 +28,12 @@
         <!-- Your Page Content Here -->
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="{{ route('manage.config.show', 1) }}"><strong class="text-red">1. 사이트 정보</strong></a></li>
+                <li class="active"><a href="{{ route('manage.config.show', 1) }}"><strong class="text-red">1. 기본 정보</strong></a></li>
                 <li><a href="{{ route('manage.config.show', 2) }}">2. 운영 정보</a></li>
-                <li><a href="{{ route('manage.config.show', 3) }}">3. 사용자 정보</a></li>
+                <li><a href="{{ route('manage.config.show', 3) }}">3. 회원 정보</a></li>
                 <li><a href="{{ route('manage.config.show', 4) }}">4. 메일 정보</a></li>
-                <li><a href="{{ route('manage.config.show', 4) }}">5. 테마 정보</a></li>
-                <li><a href="{{ route('manage.config.show', 5) }}">6. API 정보</a></li>
+                <li><a href="{{ route('manage.config.show', 5) }}">5. 테마 정보</a></li>
+                <li><a href="{{ route('manage.config.show', 6) }}">6. API 정보</a></li>
                 <li class="pull-right box-tools" data-toggle="tooltip" data-placement="left" title="저장하기"><button type="button" class="btn btn-danger btn-sm" onClick="return $('#configForm').submit();"><i class="fa fa-arrow-circle-right"></i></button></li>
             </ul>
             <div class="tab-content">

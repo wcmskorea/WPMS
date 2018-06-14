@@ -9,13 +9,12 @@ class Config extends Model
 {
     protected $fillable = ['title', 'description', 'keywords', 'agree'];
 
-    public static $rules = [
+    public static $rules1 = [
         'title' => 'bail|required|alpha_dash|string|min:1|max:45',
         'description' => 'bail|required|string|min:1|max:100',
         'keywords' => 'bail|required',
     ];
-
-    public static $messages = [
+    public static $messages1 = [
         'title.required' => '사이트 제목은 필수 입력사항 입니다.',
         'title.alpha_dash' => '사이트 제목은 문자, 숫자, 대쉬(-), 언더스코어(_)만 포함할 수 있습니다.',
         'title.min'  => '사이트 제목은 1~45자까지 입력하실 수 있습니다.',
@@ -26,6 +25,21 @@ class Config extends Model
         'keywords.required'  => '사이트 키워드는 필수 입력사항 입니다.',
         'agree.required'  => '관리자 정보호보 서약은 필수 선택사항  입니다.',        
     ];
+    public static $rules2 = [];
+    public static $messages2 = [];
+    public static $rules3 = [];
+    public static $messages3 = [];
+    public static $rules4 = [];
+    public static $messages4 = [];
+    public static $rules5 = [];
+    public static $messages5 = [];
+    public static $rules6 = [];
+    public static $messages6 = [];    
+
+    public function __construct()
+    {
+        //
+    }
 
     // 환경 설정 인덱스 페이지에 들어갈 데이터
     public function getConfigIndexParams()
@@ -91,7 +105,7 @@ class Config extends Model
             'pointRegist' => config('wpms.pointRegist'),
             'pointSendMemo' => config('wpms.pointSendMemo'),
             'pointTerm' => config('wpms.pointTerm'),
-            'pointRread' => config('wpms.pointRread'),
+            'pointRead' => config('wpms.pointRead'),
             'pointWrite' => config('wpms.pointWrite'),
             'pointComment' => config('wpms.pointComment'),
             'pointDownload' => config('wpms.pointDownload'),
@@ -187,7 +201,7 @@ class Config extends Model
     public function updateConfig($data, $name='', $theme=0)
     {
         // DB엔 안들어가는 값은 데이터 배열에서 제외한다.
-        $data = array_except($data, ['_token', '_method']);
+        $data = array_except($data, ['_token', '_method', 'id']);
         if($name) {
             Cache::forget("config.$name");
             return $this->updateConfigByOne($name, $data);
@@ -206,8 +220,6 @@ class Config extends Model
             'fileallow' => ($data['fileallow']) ? : cache('config.website')->fileallow,
         ];
 
-        // dd($configData);
-
         // 설정이 변경될 때 캐시를 지운다.
         Cache::forget("config.website");
 
@@ -220,7 +232,7 @@ class Config extends Model
 
         // json 타입을 배열로 변경.
         $originalData = json_decode($config->vars, true);
-
+        
         // 업데이트할 설정값을 원래 설정 값에 덮어 씌운다.
         foreach($data as $key => $value) {
             $originalData[$key] = $data[$key];
