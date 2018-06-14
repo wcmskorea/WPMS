@@ -21,7 +21,7 @@
 
     // 운영 설정
     'pointUse' => 1,
-    'potinLogin' => 100,
+    'pointLogin' => 100,
     'pointRegist' => 1000,
     'pointSendMemo' => 0,
     'pointTerm' => 0,

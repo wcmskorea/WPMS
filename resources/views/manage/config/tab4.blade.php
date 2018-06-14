@@ -29,9 +29,9 @@
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li><a href="{{ route('manage.config.show', 1) }}">1. 기본 정보</a></li>
-                <li class="active"><a href="{{ route('manage.config.show', 2) }}"><strong class="text-red">2. 운영 정보</strong></a></li>
+                <li><a href="{{ route('manage.config.show', 2) }}">2. 운영 정보</a></li>
                 <li><a href="{{ route('manage.config.show', 3) }}">3. 회원 정보</a></li>
-                <li><a href="{{ route('manage.config.show', 4) }}">4. 메일 정보</a></li>
+                <li class="active"><a href="{{ route('manage.config.show', 4) }}"><strong class="text-red">4. 메일 정보</strong></a></li>
                 <li><a href="{{ route('manage.config.show', 5) }}">5. 테마 정보</a></li>
                 <li><a href="{{ route('manage.config.show', 6) }}">6. API 정보</a></li>
                 <li class="pull-right box-tools" data-toggle="tooltip" data-placement="left" title="저장하기"><button type="button" class="btn btn-danger btn-sm" onClick="return $('#configForm').submit();"><i class="fa fa-arrow-circle-right"></i></button></li>
@@ -42,55 +42,53 @@
                     <form id="configForm" action="{{ route('manage.config.update') }}" method="post" class="form-horizontal">
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
-                    <input type="hidden" name="id" value="2">
+                    <input type="hidden" name="id" value="4">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="pointUse" class="col-sm-2 control-label">포인트 적용</label>
+                            <label for="emailUse" class="col-sm-2 control-label">메일발송 사용</label>
                             <div class="col-sm-10">
-                                <label><input type="checkbox" class="flat-red" name="pointUse" id="pointUse" value="yes"@if ($configPolicy->pointUse){{ ' checked' }}@endif>&nbsp;&nbsp;적용</label>
-                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 포인트 제도 사용여부</p>
+                                <label><input type="checkbox" class="flat-red" name="emailUse" id="emailUse" value="yes"@if ($configMail->emailUse){{ ' checked' }}@endif>&nbsp;&nbsp;적용</label>
+                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 메일발송 연동 여부</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pointLogin" class="col-sm-2 control-label">로그인시 포인트</label>
+                            <label for="emailMaster" class="col-sm-2 control-label">대표 이메일</label>
                             <div class="col-sm-10">
-                                <input name="pointLogin" type="text" class="form-control" id="pointLogin" value="{{ $configPolicy->pointLogin }}" placeholder="Input ...">
-                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 사용자 로그인시 1일 1회 적립 포인트</p>
+                                <input name="emailMaster" type="text" class="form-control" id="emailMaster" value="{{ $configMail->emailMaster }}" placeholder="Input ...">
+                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 메일 발송 및 수신시 사용될 대표 이메일 주소 입력</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pointRegist" class="col-sm-2 control-label">회원등록 포인트</label>
+                            <label for="emailMasterName" class="col-sm-2 control-label">대표 이메일 이름</label>
                             <div class="col-sm-10">
-                                <input name="pointRegist" type="text" class="form-control" id="pointRegist" value="{{ $configPolicy->pointRegist }}" placeholder="Input ...">
-                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 사용자 로그인시 1일 1회 적립 포인트</p>
+                                <input name="emailMasterName" type="text" class="form-control" id="emailMasterName" value="{{ $configMail->emailMasterName }}" placeholder="Input ...">
+                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 메일 발송 및 수신시 사용될 대표 이메일의 이름 입력</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pointWrite" class="col-sm-2 control-label">글작성 포인트</label>
+                            <label for="emailSendMaster" class="col-sm-2 control-label">대표 이메일 수신여부</label>
                             <div class="col-sm-10">
-                                <input name="pointWrite" type="text" class="form-control" id="pointWrite" value="{{ $configPolicy->pointWrite }}" placeholder="Input ...">
-                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 게시글 1회 작성시 1회 적립 포인트</p>
+                                <label><input type="radio" name="emailSendMaster" class="flat-red" value="1"@if ($configMail->emailSendMaster){{ ' checked' }}@endif> 사용함</label>
+                                <label><input type="radio" name="emailSendMaster" class="flat-red" value="0"@if (!$configMail->emailSendMaster){{ ' checked' }}@endif> 사용안함</label>
+                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 대표 이메일로 정보 수신 여부</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pointComment" class="col-sm-2 control-label">댓글 포인트</label>
+                            <label for="emailSendWriter" class="col-sm-2 control-label">작성자 이메일 수신여부</label>
                             <div class="col-sm-10">
-                                <input name="pointComment" type="text" class="form-control" id="pointComment" value="{{ $configPolicy->pointComment }}" placeholder="Input ...">
-                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 댓글 1회 작성시 1회 적립 포인트</p>
+                                <label><input type="radio" name="emailSendWriter" class="flat-red" value="1"@if ($configMail->emailSendWriter){{ ' checked' }}@endif> 사용함</label>
+                                <label><input type="radio" name="emailSendWriter" class="flat-red" value="0"@if (!$configMail->emailSendWriter){{ ' checked' }}@endif> 사용안함</label>
+                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 정보 등록시 작성자에게 이메일 발송 여부</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pointFirstBuy" class="col-sm-2 control-label">첫구매 포인트</label>
+                            <label for="emailSendRegister" class="col-sm-2 control-label">회원등록 이메일 발송여부</label>
                             <div class="col-sm-10">
-                                <input name="pointComment" type="text" class="form-control" id="pointFirstBuy" value="{{ $configPolicy->pointFirstBuy }}" placeholder="Input ...">
-                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 첫구매 1회 달성시 1회 적립 포인트</p>
+                                <label><input type="radio" name="emailSendRegister" class="flat-red" value="1"@if ($configMail->emailSendRegister){{ ' checked' }}@endif> 사용함</label>
+                                <label><input type="radio" name="emailSendRegister" class="flat-red" value="0"@if (!$configMail->emailSendRegister){{ ' checked' }}@endif> 사용안함</label>
+                                <p class="text-muted pull-right"><i class="fa fa-exclamation"></i> 회원등록시 등록자에게 이메일 발송 여부</p>
                             </div>
                         </div>
-                    <!-- <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <label><input type="checkbox" class="flat-red" name="agree" value="yes">&nbsp;&nbsp;데이터를 관리하는 관리자로써 정보보호 서약에 동의합니다.</label>
-                            </div>
-                        </div> -->
                     </div><!-- /.box-body -->    
                     <div class="box-footer">
                         <button type="submit" class="btn btn-danger btn-lg pull-right">저장하기 <i class="fa fa-arrow-circle-right"></i></a>
@@ -117,7 +115,7 @@
         // 사이드바 현재 위치 활성화
         $('#treeConfig').addClass("active");
         // 라디오버튼 UI
-        $('input[type="checkbox"].flat-red').iCheck({
+        $('input.flat-red').iCheck({
             checkboxClass: 'icheckbox_flat-red',
             radioClass   : 'iradio_flat-red'
         })
