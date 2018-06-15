@@ -24,34 +24,44 @@ class User extends Authenticatable
      */
     protected $guarded = [];
 
-    public $rulesRegister = [
+    public static $rulesLogin = [
+        'email' => 'required|email|max:255',
+        'password' => 'required',
+    ];
+    public static $messagesLogin = [
+        'email.required' => '이메일을 입력해 주세요.',
+        'email.email' => '이메일에 올바른 Email양식으로 입력해 주세요.',
+        'email.max' => '이메일은 :max자리를 넘길 수 없습니다.',
+        'password.required' => '비밀번호를 입력해 주세요.',
+        'password.regex' => '',
+    ];
+    public static $rulesTerms = [
+        'agreeStipulation' => 'required',
+        'agreePrivacy' => 'required',
+    ];
+    public static $messagesTerms = [
+        'agreeStipulation.required' => '회원가입 약관에 동의해야 회원가입을 진행할 수 있습니다.',
+        'agreePrivacy.required' => '개인정보취급방침에 동의해야 회원가입을 진행할 수 있습니다.',
+    ];
+    public static $rulesRegister = [
         'email' => 'required|email|max:255|unique:users',
-        'nick' => 'required|nick_length:2,4|unique:users',
+        'name' => 'required|string|min:2|max:4',
+        'password' => 'required|confirmed',
         'password_confirmation' => 'required',
     ];
-
-    public $rulesPassword = [
-        'password_confirmation' => 'required',
-    ];
-
-    public $messages = [
+    public static $messagesRegister = [
         'email.required' => '이메일을 입력해 주세요.',
         'email.email' => '이메일에 올바른 Email양식으로 입력해 주세요.',
         'email.max' => '이메일은 :max자리를 넘길 수 없습니다.',
         'email.unique' => '이미 등록된 이메일입니다. 다른 이메일을 입력해 주세요.',
         'password.required' => '비밀번호를 입력해 주세요.',
-        'password.confirmed' => '비밀번호 확인에 동일하게 입력해 주세요.',
+        'password.confirmed' => '입력하신 비밀번호와 비밀번호 확인이 일치하지 않습니다.',
         'password.regex' => '',
         'password_confirmation.required' => '비밀번호 확인을 입력해 주세요.',
         'name.alpha_dash' => '이름에 영문자, 한글, 숫자, 대쉬(-), 언더스코어(_)만 입력해 주세요.',
-        'nick.required' => '닉네임을 입력해 주세요.',
-        'nick.nick_length' => '닉네임의 길이는 한글 :half자, 영문 :min자 이상이어야 합니다.',
-        'nick.unique' => '이미 등록된 닉네임입니다. 다른 닉네임을 입력해 주세요.',
-        'homepage.regex' => '홈페이지에 올바른 url 형식으로 입력해 주세요.',
+        'name.required' => '이름을 입력해 주세요.',
         'tel.regex' => '전화번호에 전화번호형식(000-0000-0000)으로 입력해 주세요.',
         'hp.regex' => '휴대폰번호에 전화번호형식(000-0000-0000)으로 입력해 주세요.',
-        'recommend.nick_length' => '추천인의 길이는 한글 :half자, 영문 :min자 이상이어야 합니다.',
-        'iconName.regex' => '회원아이콘에는 확장자가 gif인 이미지 파일만 들어갈 수 있습니다.',
     ];
 
     /**
@@ -257,9 +267,11 @@ class User extends Authenticatable
         $nowDate = Carbon::now()->toDateString();
 
         $userInfo = [
-            'email' => getEmailAddress($request->get('email')),
+            'name' => $request->get('name'),
+            // 'email' => getEmailAddress($request->get('email')),
+            'email' => $request->get('email'),
             'password' => $request->filled('password') ? bcrypt($request->get('password')) : '',
-            'nick' => $request->get('nick'),
+            'nick' => $request->get('name'),
             'nick_date' => $nowDate,
             'mailing' => 0,
             'open' => 1,
@@ -274,12 +286,11 @@ class User extends Authenticatable
             'adult' => $request->filled('adult') ? $request->adult : 0,
             'birth' => $request->filled('birth') ? $request->birth : null,
             'sex' => $request->filled('sex') ? $request->sex : null,
-            'name' => $request->filled('name') ? cleanXssTags(trim($request->name)) : null,
             'dupinfo' => $request->filled('dupinfo') ? $request->dupinfo : null,
         ];
 
         // 이메일 인증을 사용할 경우 + 소셜 가입이 아닌 경우
-        if(cache('config.email.default')->emailCertify && !session()->get('userFromSocial')) {
+        if(!session()->get('userFromSocial')) {
             $addUserInfo = [
                 'email_certify' => null,
                 // 라우트 경로 구분을 위해 /는 제거해 줌.
@@ -301,22 +312,22 @@ class User extends Authenticatable
         $user = User::find($lastInsertId);
 
         // 회원 가입 축하 포인트 부여
-        insertPoint($user->id, cache("config.join")->joinPoint, '회원가입 축하', '@users', $user->email);
+        // insertPoint($user->id, cache("config.join")->joinPoint, '회원가입 축하', '@users', $user->email);
 
         // Users 테이블의 주 키인 id의 해시 값을 만들어서 저장한다. (게시글에 사용자 번호 노출 방지)
         $user->id_hashkey = str_replace("/", "-", bcrypt($user->id));
 
         $user->save();
 
-        $notice = new Notice();
-        // 회원 가입 축하 메일 발송 (인증도 포함되어 있음)
-        if(cache('config.email.join')->emailJoinUser) {
-            $notice->sendCongratulateJoin($user);
-        }
-        // 최고관리자에게 회원 가입 알림 메일 발송
-        if(cache('config.email.join')->emailJoinSuperAdmin) {
-            $notice->sendJoinNotice($user);
-        }
+        // $notice = new Notice();
+        // // 회원 가입 축하 메일 발송 (인증도 포함되어 있음)
+        // if(cache('config.email.join')->emailJoinUser) {
+        //     $notice->sendCongratulateJoin($user);
+        // }
+        // // 최고관리자에게 회원 가입 알림 메일 발송
+        // if(cache('config.email.join')->emailJoinSuperAdmin) {
+        //     $notice->sendJoinNotice($user);
+        // }
 
         return $user;
     }
@@ -651,16 +662,16 @@ class User extends Authenticatable
         if(!isset($messages['password.regex'])) {
             $messages['password.regex'] = '';
         }
-        if(cache("config.join")->passwordPolicyUpper) {
+        if(cache("config.user")->passwordPolicyUpper) {
             $messages['password.regex'] .= '대문자 1개 이상';
         }
-        if(cache("config.join")->passwordPolicyNumber) {
+        if(cache("config.user")->passwordPolicyNumber) {
             if($messages['password.regex']) {
                 $messages['password.regex'] .= ', ';
             }
             $messages['password.regex'] .= '숫자 1개 이상';
         }
-        if(cache("config.join")->passwordPolicySpecial) {
+        if(cache("config.user")->passwordPolicySpecial) {
             if($messages['password.regex']) {
                 $messages['password.regex'] .= ', ';
             }
@@ -669,7 +680,7 @@ class User extends Authenticatable
         if($messages['password.regex']) {
             $messages['password.regex'] .= '이 포함된 ';
         }
-        $messages['password.regex'] .= cache("config.join")->passwordPolicyDigits. '자리 이상의 문자열로 입력해 주세요.';
+        $messages['password.regex'] .= cache("config.user")->passwordPolicyDigits. '자리 이상의 문자열로 입력해 주세요.';
 
         return $messages;
     }

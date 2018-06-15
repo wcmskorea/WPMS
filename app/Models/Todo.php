@@ -9,7 +9,7 @@ class Todo extends Model
 {
     use SoftDeletes;
     
-    public $todoModel;
+    // public $todoModel;
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['title', 'done', 'progress'];
