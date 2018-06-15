@@ -10,9 +10,12 @@
         <img src="/bower/admin-lte/dist/img/user2-160x160.jpg" class="img-rounded" alt="User Image">
       </div>
       <div class="pull-left info">
-        <p>{{ $configWebsite->title }}</p>
+        <p class="text-center">{{ $configWebsite->title }}</p>
         <!-- Status -->
-        <a href="/" target="_blank" class="text-muted"><i class="fa fa-home text-success"></i> go home</a>
+        <a href="/" target="_blank" class="text-muted"><i class="fa fa-home text-success"></i> go.home</a>
+        @if (Route::has('login'))
+        <a href="/logout" class="text-muted"><i class="fa fa-user text-danger"></i> log.out</a>
+        @endif
       </div>
     </div>
 

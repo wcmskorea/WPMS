@@ -8,12 +8,18 @@ use App\Models\Todo;
 
 class ManageController extends Controller
 {
+    public function __construct() {
+
+        // $this->middleware('auth', ['only' => ['dashboard']]);
+
+    }
     //
     public function index() {        
         return redirect()->route('manage.dashboard');
     }
 
     public function dashboard() {
+
         // $todos = Todo::all();        
         $progress = 0;
         $datas = Todo::where('done', 0)->orderBy('created_at', 'desc')->paginate(5); // withTrashed(), onlyTrashed() //softdelete된 데이터를 포함할지 여부 함수
@@ -32,5 +38,6 @@ class ManageController extends Controller
             'todos_count' => sizeof($datas),
             'todos_progress' => $progress
         ])->with('configWebsite', cache("config.website"));
+        
     }
 }
